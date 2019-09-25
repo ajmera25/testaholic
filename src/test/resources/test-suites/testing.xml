@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="smokeTests" parallel="tests"  thread-count="20">
+	
+	<test name = "">
+		<classes>
+			<class name=""></class>
+		</classes>
+	</test>
+	
+</suite>

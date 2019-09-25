@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<script src="\src\test\resources\results\WebDetails.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+    
+	<title>Test Results</title>
+	
+    <style>
+	
+        th, td, p, input {
+            font:14px Verdana;
+        }
+		
+		tr:nth-child(even){background-color: #f2f2f2;}
+		
+        table, th, td 
+        {
+            border: solid 1px #DDD;
+            border-collapse: collapse;
+            padding: 2px 3px;
+            text-align: center;
+        }
+        th {
+            font-weight:bold;
+			padding-top: 12px;
+			padding-bottom: 12px;
+			background-color: #808080;
+			color: white;
+        }
+		
+	</style>
+	
+</head>
+
+<body>
+		
+	<p>Web Twitter Details Test Results </p>
+	
+	<div id="showData"> </div>
+		<table id= "userdata" border="2">
+			<thead>
+				<th>Twitter Account Id</th>
+				<th>Following Count</th>
+				<th>Followers Count</th>
+				<th>Description</th>
+				<th>Image</th>
+			</thead>
+			<tbody>
+			
+			</tbody>
+	   </table>
+	</div>
+
+</body>
+
+<script>
+	
+	$(function() {
+		var data = tweetData;
+		var table = document.getElementById("userdata");
+	 	Object.keys(data).forEach(function(key){
+			var tr = table.insertRow(-1); 
+			var value = data[key];
+			var tabCell = tr.insertCell(-1);
+			tabCell.innerHTML=key;
+			for(i = 0; i < value.length; i++) {
+				tabCell = tr.insertCell(-1);
+				if(i == 3){
+					tabCell.innerHTML = '<img height=\"100\" width=\"200\" src=data:image/jpeg;base64,' + value[i] + '>';
+				}
+				else{
+					tabCell.innerHTML=value[i];
+									
+				}
+			}
+			
+		});
+	});
+ 
+</script>
+
+</html>
