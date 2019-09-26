@@ -13,9 +13,13 @@ public class SamplePageObject extends BasePage{
 
 	public void search(String searchText) throws Exception {
 		webDriverClient.setTextAndEnter("//input[@type='text']", searchText);
-		webDriverClient.click("//*[@id='rso']/div/div/div[6]/div/div/div[1]/a/h3/div");
+
 	}
 
+	public void clickOnResultWithText(String textDescription) throws Exception{
+		String xpath = "//span[contains(.,'"+textDescription+"')]/parent::div/parent::div/preceding-sibling::div/a";
+		webDriverClient.click(xpath);
+	}
 	public void navigateToPosts() throws Exception {
 		webDriverClient.click("//span[text()='Posts']");
 	}
