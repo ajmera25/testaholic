@@ -70,7 +70,7 @@ public class DriverManagerFactory {
 		capabilities.setCapability("language", "en");
 		capabilities.setCapability("locale", "US");
 		options.addArguments("--disable-notifications"); 
-		capabilities.setCapability("deviceName", "JKC device");
+		capabilities.setCapability("deviceName", BaseTest.Config.getProperty("deviceName"));
         capabilities.setCapability("platformName", "Android");
         options.merge(capabilities);
 		try {
