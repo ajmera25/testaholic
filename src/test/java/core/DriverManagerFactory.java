@@ -69,12 +69,10 @@ public class DriverManagerFactory {
 		capabilities.setCapability(CapabilityType.BROWSER_NAME, BrowserType.CHROME);
 		capabilities.setCapability("language", "en");
 		capabilities.setCapability("locale", "US");
-		options.addArguments("--disable-notifications"); 
 		capabilities.setCapability("deviceName", "9243934");
         capabilities.setCapability("platformName", "Android");
-        options.merge(capabilities);
 		try {
-			setAppiumDriver(new AppiumDriver(new URL("http://192.168.43.141:4723/wd/hub"), options));
+			setAppiumDriver(new AppiumDriver(new URL("http://192.168.43.141:4723/wd/hub"), capabilities));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}

@@ -6,3 +6,5 @@
 .classpath
 /.idea/
 testaholic.iml
+src/test/resources/mobilephotos/
+src/test/resources/testdata/
