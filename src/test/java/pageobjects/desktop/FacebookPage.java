@@ -82,8 +82,8 @@ public class FacebookPage extends BasePage{
 		try {
 			webDriverClient.waitForElementToBeClickable(photos);
 			webDriverClient.click(photos);
-			webDriverClient.waitForElementToBeClickable(seeAll);
-			webDriverClient.scrollWindowVerticallyToClickableElement(seeAll);
+			//webDriverClient.waitForElementToBeClickable(seeAll);
+			webDriverClient.scrollElementToCentre(webDriverClient.findElement(seeAll));
 			webDriverClient.click(seeAll);
 			return webDriverClient.getCurrentURL().contains("tab=albums");
 		}catch(Exception e) {

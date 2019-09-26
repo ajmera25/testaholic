@@ -35,8 +35,9 @@ public class GooglePage extends BasePage{
 		}else {
 			System.out.println("25000 test Professionals text not present");
 			mobileWebDriverClient.setURL(stepInFromPosts);
+			return true;
 		}
-		return true;
+		
 	}
 
     

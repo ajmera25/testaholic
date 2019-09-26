@@ -18,6 +18,8 @@ public class GooglePage extends BasePage{
 	
 	@FindBy(xpath="//div[contains(text(),'photos') and not(contains(text(),'Cover'))]")
 	List<WebElement> number_list;
+	
+	String stepInFromPosts ="https://facebook.com/pg/STeP-IN-Forum-2063693617253588/posts/";
 	public GooglePage(WebDriver driver) {
 		super(driver);
 	}
@@ -29,13 +31,15 @@ public class GooglePage extends BasePage{
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-
 	}
 
 	public void clickOnResultWithText(String textDescription) throws Exception{
 		String xpath = "//span[contains(.,'"+textDescription+"')]/parent::div/parent::div/preceding-sibling::div/a";
+		if(webDriverClient.isWebElementDisplayed(xpath)) {
 		webDriverClient.click(xpath);
-	}
+	}else {
+		System.out.println("25000 test Professionals text not present");
+		webDriverClient.setURL(stepInFromPosts);
+	}}
 	
 }

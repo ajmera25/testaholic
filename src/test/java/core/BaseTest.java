@@ -66,7 +66,7 @@ public class BaseTest {
 		}
 	}
 	
-	@AfterMethod
+	/*@AfterMethod
 	public void takeScreenShotOnFaiStepInForum_FB_DesktopWeblure(ITestResult testResult) throws IOException {
 		if (testResult.getStatus() == ITestResult.FAILURE) {
 			System.out.println(testResult.getStatus());
@@ -74,5 +74,5 @@ public class BaseTest {
 			String filePath = System.getProperty("user.dir") + "/src/test/resources/screenshots/"+testResult.getName()+".png";
 			FileUtils.copyFile(scrFile, new File(filePath));
 	   }        
-	}
+	}*/
 }
