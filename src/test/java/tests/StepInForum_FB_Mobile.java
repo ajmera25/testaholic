@@ -1,6 +1,7 @@
 package tests;
 import java.util.HashMap;
 
+import core.APIHelper;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -8,9 +9,11 @@ import org.testng.asserts.SoftAssert;
 import core.BaseTest;
 import pageobjects.mobile.MobilePageObjects;
 import utilities.FileUtils;
+import utilities.JsonTemplate;
 
 public class StepInForum_FB_Mobile extends BaseTest{
 	MobilePageObjects mobileFlow;
+    HashMap<String, Integer> albumNames;
     
     @Test
     public void test001_StepInFB() throws Exception{
@@ -35,11 +38,16 @@ public class StepInForum_FB_Mobile extends BaseTest{
             imageCounter++;
         }
         ImageSizeVerification.assertAll();
-        HashMap<String, String> hMapAlbum = new HashMap<>();
-        hMapAlbum = mobileFlow.getListOfAlbumns();
-        System.out.println(hMapAlbum);
+        this.albumNames  = mobileFlow.getListOfAlbumns();
     }
-    
+
+    @Test(dependsOnMethods = "test002_DownloadPhotosAndCheckSize" )
+    public void test003_verifyFileUploaded(){
+        String fileName = new FileUtils().createJSONFile(new JsonTemplate(teamName, albumNames).getJsonString());
+        APIHelper apiHelper = new APIHelper();
+        String response = apiHelper.upload(fileName);
+        Assert.assertTrue(response.contains(teamName),"Team name is not present in the response => "+response);
+    }
 }
 
 
