@@ -25,7 +25,7 @@ public class StepInForum_FB_DesktopWeb extends BaseTest{
     	google.search("step-in forum facebook");
     	google.clickOnResultWithText("25000 test professionals");
         Assert.assertTrue(facebook.isStepInForumFBPageDisplayed(),"Error! Unable to navigate to Step In forum facebook page");
-        //Assert.assertTrue(desktop.navigateToPosts(),"Unable to navigate to posts");
+        Assert.assertTrue(facebook.navigateToPosts(),"Unable to navigate to posts");
     }
     
     @Test(dependsOnMethods = "stepInFB")
@@ -37,7 +37,8 @@ public class StepInForum_FB_DesktopWeb extends BaseTest{
     @Test(dependsOnMethods = "verifyDownloadPhotos")
 	public void getAlbumNamesAndPhotoCount() throws Exception {
     	Assert.assertTrue(facebook.navigateToAlbums(),"Unable to navigate to all albums");
-         this.albumNames= facebook.getAllAlbumNames();
+        this.albumNames= facebook.getAllAlbumNames();
+        Assert.assertFalse(albumNames.isEmpty(), "Failed to get album names");
 	}
 
 	@Test(dependsOnMethods = "getAlbumNamesAndPhotoCount" )
