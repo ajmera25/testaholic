@@ -30,15 +30,18 @@ public class SamplePageObject extends BasePage{
 		String xpath = "//span[contains(.,'"+textDescription+"')]/parent::div/parent::div/preceding-sibling::div/a";
 		webDriverClient.click(xpath);
 	}
-	public void navigateToPosts() throws Exception {
+	public boolean navigateToPosts() throws Exception {
 		webDriverClient.click("//span[text()='Posts']");
+		return webDriverClient.getCurrentURL().contains("posts");
+		
 	}
 
-	public void navigateToPhotos() throws Exception {
+	public boolean navigateToAlbums() throws Exception {
 		webDriverClient.scrollElementToCentre(photos);
 		webDriverClient.click("//span[text()='Photos']");
 
 		webDriverClient.click("//div[text()='Albums']/parent::div/following-sibling::div/a/div[text()='See All']");
+	return webDriverClient.getCurrentURL().contains("tab=albums");
 	}
 	
 	public HashMap<String, Integer> getAllAlbumNames() throws Exception {
@@ -50,5 +53,10 @@ public class SamplePageObject extends BasePage{
 			albumDetails.put(albumName, noOfPhotos);
 		}
 		return albumDetails;
+	}
+	
+	public boolean isStepInForumFBPageDisplayed() throws Exception {
+		return webDriverClient.isWebElementDisplayed("//a[@class='_64-f' and @href='https://www.facebook.com/STeP-IN-Forum-2063693617253588/']");
+		
 	}
 }
