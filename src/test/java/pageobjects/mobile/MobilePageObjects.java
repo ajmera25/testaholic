@@ -149,7 +149,7 @@ public class MobilePageObjects extends BasePage{
             mobileWebDriverClient.waitForVisibilityOfElementLocatedBy(strFullSize);
             String src = mobileWebDriverClient.getAttribute(strFullSize, "href");
             System.out.println(src);
-            fileUtils.downloadImage(src,"mobile",imageCounter);
+            fileUtils.downloadImage(src,"Mobile",imageCounter);
             imageCounter++;
             mobileWebDriverClient.JSClick(strNext);
         }

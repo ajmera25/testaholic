@@ -22,6 +22,7 @@ public class StepInForum_FB_DesktopWeb extends BaseTest{
     public void stepInFB() throws Exception{
     	google = new GooglePage(driver);
     	facebook = new FacebookPage(driver);
+    	
     	google.search("step-in forum facebook");
     	google.clickOnResultWithText("25000 test professionals");
         Assert.assertTrue(facebook.isStepInForumFBPageDisplayed(),"Error! Unable to navigate to Step In forum facebook page");

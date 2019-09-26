@@ -7,9 +7,9 @@
 			<class name="tests.StepInForum_FB_DesktopWeb"></class>
 		</classes>
 	</test>
-	 <test name ="StepInForum_FB_Mobile">
+	<!--  <test name ="StepInForum_FB_Mobile">
 		<classes>
 			<class name="tests.StepInForum_FB_Mobile"></class>
 		</classes>
-	</test>
+	</test> -->
 </suite>

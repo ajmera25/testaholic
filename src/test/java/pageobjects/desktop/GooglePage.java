@@ -23,7 +23,13 @@ public class GooglePage extends BasePage{
 	}
 
 	public void search(String searchText) throws Exception {
-		webDriverClient.setTextAndEnter("//input[@type='text']", searchText);
+		try {
+			webDriverClient.waitForElementToBeClickable("//input[@type='text']");
+			webDriverClient.setTextAndEnter("//input[@type='text']", searchText);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 
 	}
 

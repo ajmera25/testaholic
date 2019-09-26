@@ -1,12 +1,8 @@
 package pageobjects.desktop;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
-
-import javax.imageio.ImageIO;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -34,15 +30,14 @@ public class FacebookPage extends BasePage{
 		boolean bval = false;
 		String firstPhoto = "//div[contains(text(),'+')]/parent::div/parent::div/ancestor::a/parent::div/a";
 		try {
-			webDriverClient.scrollWindow();
+			webDriverClient.scrollWindowVerticallyToClickableElement(webDriverClient.findElement(firstPhoto));
 			webDriverClient.waitForElementToBeClickable("//a[text()='Not Now']");
 			webDriverClient.click("//a[text()='Not Now']");
-			webDriverClient.scrollWindowVerticallyToClickableElement(webDriverClient.findElement(firstPhoto));
 			webDriverClient.click(firstPhoto);
 			 FileUtils fileUtils = new FileUtils();
 			for(int i=1; i<=5; i++) {
 				String src = webDriverClient.findElement("//img[@class='spotlight']").getAttribute("src");
-				 fileUtils.downloadImage(src,"desktop",i);
+				fileUtils.downloadImage(src,"Desktop", i);
 				webDriverClient.JSClick("//a[contains(@class,'snowliftPager next')]");
 			}
 			

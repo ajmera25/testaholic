@@ -35,16 +35,15 @@ public class FileUtils {
 		return fileName;
 	}
 	
-    public void downloadImage(String src, String platform,int fileName) {
-        // TODO Auto-generated method stub
+    public void downloadImage(String src, String platform, int fileName) {
         try {
         BufferedImage bufferedImage = ImageIO.read(new URL(src));
         String filePath = System.getProperty("user.dir") + "/src/test/resources/" + platform + "Photos/" + fileName + ".jpg";
         File outputfile = new File(filePath);
         ImageIO.write(bufferedImage, "jpeg", outputfile);
-    }catch (IOException e) {
-        e.printStackTrace();
-    }
+        }catch (IOException e) {
+        	e.printStackTrace();
+        }
     }
 
 
