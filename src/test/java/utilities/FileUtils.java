@@ -35,15 +35,18 @@ public class FileUtils {
 		return fileName;
 	}
 	
-    public void downloadImage(String src, String platform, int fileName) {
-        try {
+    public boolean downloadImage(String src, String platform, int fileName) {
+        boolean bval = false;
+    	try {
         BufferedImage bufferedImage = ImageIO.read(new URL(src));
         String filePath = System.getProperty("user.dir") + "/src/test/resources/" + platform + "Photos/" + fileName + ".jpg";
-        File outputfile = new File(filePath);
-        ImageIO.write(bufferedImage, "jpeg", outputfile);
+        File file = new File(filePath);
+        ImageIO.write(bufferedImage, "jpeg", file);
+        bval = file.exists();
         }catch (IOException e) {
         	e.printStackTrace();
         }
+		return bval;
     }
 
 
