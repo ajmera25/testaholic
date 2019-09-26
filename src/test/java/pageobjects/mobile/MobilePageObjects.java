@@ -54,19 +54,23 @@ public class MobilePageObjects extends BasePage{
 
 	String strAllPhotosCount = "(//div[@class = '%s']/parent::div/span/span)[%i]"; 
 
-	String strGetClass = "//div[text() = 'Mobile Uploads']";
+	String strGetClass = "//div[text() = 'Profile Pictures']";
 
 	@FindBy(id = "m_login_email")
 	MobileElement txt_mUsername;
 	
 	@FindBy(id = "m_login_password")
 	MobileElement txt_mPassword;
+	
+	String fbUrl = "https://m.facebook.com";
+	String fbLoginNotNow =".//span[text()='Not Now']";
 
 	public HashMap<String, Integer> getListOfAlbumns(){
 		HashMap<String, Integer> hMapAlbum = new HashMap<>();
 		try{
-			mobileWebDriverClient.setURL("https://m.facebook.com/pg/STePINForum/photos");
-			mobileWebDriverClient.click(lbl_FBPhotos);
+			mobileWebDriverClient.setURL(fbUrl);
+			doFBMLogin();
+			mobileWebDriverClient.setURL("https://m.facebook.com/STeP-IN-Forum-2063693617253588/photos");
 			if(mobileWebDriverClient.isMobileElementDisplayed(lnk_closePopup)){
 				mobileWebDriverClient.click(lnk_closePopup);
 			}   
@@ -74,15 +78,9 @@ public class MobilePageObjects extends BasePage{
 			if(mobileWebDriverClient.isMobileElementDisplayed(lnk_closePopup)){
 				mobileWebDriverClient.click(lnk_closePopup);
 			}  
-			mobileWebDriverClient.scroll(2);
+			mobileWebDriverClient.scroll(15);
 			mobileWebDriverClient.JSClick(strMoreAlbums);
-			Thread.sleep(2000);
-			doFBMLogin();
-			appiumDriver.navigate().back();
-			mobileWebDriverClient.setURL("https://m.facebook.com/pg/STePINForum/photos");
-			mobileWebDriverClient.click(lbl_FBPhotos);
-			mobileWebDriverClient.click(lbl_FBSeeAll);
-			mobileWebDriverClient.click(strMoreAlbums);
+			Thread.sleep(5000);
 
 			String strClassName = mobileWebDriverClient.getAttribute(strGetClass, "class");
 
@@ -107,6 +105,7 @@ public class MobilePageObjects extends BasePage{
 			mobileWebDriverClient.setText(txt_mUsername, "pratik3");
 			mobileWebDriverClient.setText(txt_mPassword, "AJmera@2428");
 			mobileWebDriverClient.sendEnterKey();
+			mobileWebDriverClient.JSClick(fbLoginNotNow);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
