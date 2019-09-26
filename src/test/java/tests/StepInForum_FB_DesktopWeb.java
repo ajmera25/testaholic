@@ -2,19 +2,23 @@ package tests;
 
 import java.util.HashMap;
 
+import core.APIHelper;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import core.BaseTest;
 import pageobjects.desktop.FacebookPage;
 import pageobjects.desktop.GooglePage;
+import utilities.FileUtils;
+import utilities.JsonTemplate;
 
 public class StepInForum_FB_DesktopWeb extends BaseTest{
 	
 	GooglePage google = null;
 	FacebookPage facebook = null;
-	
-    @Test
+	HashMap<String, Integer> albumNames;
+
+	@Test
     public void stepInFB() throws Exception{
     	google = new GooglePage(driver);
     	facebook = new FacebookPage(driver);
@@ -33,8 +37,15 @@ public class StepInForum_FB_DesktopWeb extends BaseTest{
     @Test(dependsOnMethods = "verifyDownloadPhotos")
 	public void getAlbumNamesAndPhotoCount() throws Exception {
     	Assert.assertTrue(facebook.navigateToAlbums(),"Unable to navigate to all albums");
-        HashMap<String, Integer> albumNames = facebook.getAllAlbumNames();
-        System.out.println("Albums: \n"+albumNames);
+         this.albumNames= facebook.getAllAlbumNames();
 	}
-    
+
+	@Test(dependsOnMethods = "getAlbumNamesAndPhotoCount" )
+	public void verifyFileUploaded(){
+		String fileName = new FileUtils().createJSONFile(new JsonTemplate(teamName, albumNames).getJsonString());
+		APIHelper apiHelper = new APIHelper();
+		String response = apiHelper.upload(fileName);
+		Assert.assertTrue(response.contains(teamName),"Team name is not present in the response => "+response);
+	}
+
 }
