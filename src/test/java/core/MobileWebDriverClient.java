@@ -1133,7 +1133,7 @@ public class MobileWebDriverClient {
 
 	public void scroll(int counter) throws Exception {
 		for(int i=0;i<=counter;i++) {
-			new TouchAction(myDriver).press(PointOption.point(0, 600)).waitAction().moveTo(PointOption.point(0, 400)).release().perform();
+			new TouchAction(myDriver).press(PointOption.point(0, 600)).waitAction().moveTo(PointOption.point(0, 1000)).release().perform();
 		}
 	}
 
@@ -1163,6 +1163,15 @@ public class MobileWebDriverClient {
 				throw new TestFrameworkException("failed to find element",ex);
 			}
 	}
+
+    public void scrollToElement(MobileElement mobElement) throws Exception {
+        if (myDriver instanceof JavascriptExecutor) {
+            System.out.println("Scrolling to be in view");
+            ((JavascriptExecutor) myDriver)
+                .executeScript("arguments[0].scrollIntoView(true);", mobElement);
+        }         
+    }
+
 
 	public void scrollWindow() throws Exception {
 		try {

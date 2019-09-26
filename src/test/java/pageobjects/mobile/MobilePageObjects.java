@@ -71,22 +71,13 @@ public class MobilePageObjects extends BasePage{
 			mobileWebDriverClient.setURL(fbUrl);
 			doFBMLogin();
 			mobileWebDriverClient.setURL("https://m.facebook.com/STeP-IN-Forum-2063693617253588/photos");
-			if(mobileWebDriverClient.isMobileElementDisplayed(lnk_closePopup)){
-				mobileWebDriverClient.click(lnk_closePopup);
-			}   
 			mobileWebDriverClient.click(lbl_FBSeeAll);
-			if(mobileWebDriverClient.isMobileElementDisplayed(lnk_closePopup)){
-				mobileWebDriverClient.click(lnk_closePopup);
-			}  
-			mobileWebDriverClient.scroll(15);
+			//mobileWebDriverClient.scroll(5);
 			mobileWebDriverClient.JSClick(strMoreAlbums);
-			Thread.sleep(5000);
-
 			String strClassName = mobileWebDriverClient.getAttribute(strGetClass, "class");
 
 			List<MobileElement> allAlbums = mobileWebDriverClient.findElements(strAllAlbums.replace("%s", strClassName));
 			int i = 1;
-
 			for(MobileElement album: allAlbums){         
 				hMapAlbum.put(album.getText(), 
 						Integer.valueOf(mobileWebDriverClient.getText(strAllPhotosCount.replace("%s", strClassName).replace("%i", String.valueOf(i))).split(" ")[0]));
