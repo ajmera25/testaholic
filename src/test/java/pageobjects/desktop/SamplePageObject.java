@@ -11,8 +11,8 @@ public class SamplePageObject extends BasePage{
 		super(driver);
 	}
 
-	public void search() throws Exception {
-		webDriverClient.setTextAndEnter("//input[@type='text']", "step-in forum facebook");
+	public void search(String searchText) throws Exception {
+		webDriverClient.setTextAndEnter("//input[@type='text']", searchText);
 		webDriverClient.click("//*[@id='rso']/div/div/div[6]/div/div/div[1]/a/h3/div");
 	}
 

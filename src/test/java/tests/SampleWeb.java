@@ -9,9 +9,8 @@ public class SampleWeb extends BaseTest{
 
     @Test
     public void stepInFB() throws Exception{
-
         SamplePageObject obj = new SamplePageObject(driver);
-        obj.search();
+        obj.search("step-in forum facebook");
         obj.navigateToPosts();
         obj.navigateToPhotos();
     }
