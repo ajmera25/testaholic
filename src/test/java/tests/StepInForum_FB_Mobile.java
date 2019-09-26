@@ -1,4 +1,6 @@
 package tests;
+import java.util.HashMap;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -33,6 +35,9 @@ public class StepInForum_FB_Mobile extends BaseTest{
             imageCounter++;
         }
         ImageSizeVerification.assertAll();
+        HashMap<String, String> hMapAlbum = new HashMap<>();
+        hMapAlbum = mobileFlow.getListOfAlbumns();
+        System.out.println(hMapAlbum);
     }
     
 }
