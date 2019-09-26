@@ -39,7 +39,9 @@ public class FileUtils {
         boolean bval = false;
     	try {
         BufferedImage bufferedImage = ImageIO.read(new URL(src));
-        String filePath = System.getProperty("user.dir") + "/src/test/resources/" + platform + "Photos/" + fileName + ".jpg";
+        File directory = new File(System.getProperty("user.dir") + "/target/" + platform + "Photos/");
+        directory.mkdir();
+        String filePath = directory + "/" + fileName + ".jpg";
         File file = new File(filePath);
         ImageIO.write(bufferedImage, "jpeg", file);
         bval = file.exists();

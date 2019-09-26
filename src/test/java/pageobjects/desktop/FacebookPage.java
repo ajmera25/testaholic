@@ -64,7 +64,7 @@ public class FacebookPage extends BasePage{
 	public boolean verifyPhotoSize() {
 		boolean bval = false;
 		for(int i=1; i<=5; i++) {
-			String filePath = System.getProperty("user.dir") + "/src/test/resources/WebPhotos/" +i+ ".jpg";
+			String filePath = System.getProperty("user.dir") + "/target/WebPhotos/" +i+ ".jpg";
 			File file = new File(filePath);
 			bval = file.length() / 1024 > 0;
 			if(!bval) {

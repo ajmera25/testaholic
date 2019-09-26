@@ -9,22 +9,12 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import utilities.FileUtils;
 
-public class MobilePageObjects extends BasePage{
+public class FacebookPage extends BasePage{
 	
-	public MobilePageObjects(AppiumDriver<MobileElement> appiumdriver) {
+	public FacebookPage(AppiumDriver<MobileElement> appiumdriver) {
 		super(appiumdriver);
 	}
 
-	@FindBy(xpath = "//input[@name='q']")
-	MobileElement txt_SearchText;
-
-	@FindBy(xpath = "//div[text() = 'All']")
-	MobileElement lbl_AllCard;
-
-	String strToSearch = "step-in forum facebook";
-
-	@FindBy(xpath = "//div[contains(text(), '25000 test professionals')]/parent::div/parent::div/parent::div//a")
-	MobileElement lnk_FBStepInForum;
 
 	@FindBy(xpath = "//a/span[text()='Posts']")
 	MobileElement lbl_FBPosts;
@@ -102,15 +92,6 @@ public class MobilePageObjects extends BasePage{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-	}
-
-    public boolean searchOnGoogle() throws Exception {
-       return mobileWebDriverClient.setTextAndEnter(txt_SearchText, strToSearch);
-    }
-
-	public boolean clickFbPost() throws Exception {
-		mobileWebDriverClient.click(lnk_FBStepInForum);
-		return mobileWebDriverClient.isMobileElementDisplayed(lbl_FBReviews);
 	}
 
 	public boolean openFbPost() throws Exception {
