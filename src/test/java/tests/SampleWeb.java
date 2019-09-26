@@ -1,5 +1,7 @@
 package tests;
 
+import java.util.HashMap;
+
 import org.testng.annotations.Test;
 
 import core.BaseTest;
@@ -14,6 +16,8 @@ public class SampleWeb extends BaseTest{
         obj.clickOnResultWithText("25000 test professionals");
         obj.navigateToPosts();
         obj.navigateToPhotos();
+        HashMap<String, Integer> finnall = obj.getAllAlbumNames();
+        System.out.println("Albums: \n"+finnall);
     }
 	
 }
