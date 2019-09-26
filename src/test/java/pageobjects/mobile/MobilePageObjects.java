@@ -78,6 +78,7 @@ public class MobilePageObjects extends BasePage{
 			mobileWebDriverClient.JSClick(strMoreAlbums);
 			Thread.sleep(2000);
 			doFBMLogin();
+			appiumDriver.navigate().back();
 			mobileWebDriverClient.setURL("https://m.facebook.com/pg/STePINForum/photos");
 			mobileWebDriverClient.click(lbl_FBPhotos);
 			mobileWebDriverClient.click(lbl_FBSeeAll);
@@ -112,9 +113,7 @@ public class MobilePageObjects extends BasePage{
 	}
 
     public boolean searchOnGoogle() throws Exception {
-        mobileWebDriverClient.setTextAndEnter(txt_SearchText, strToSearch);
-        mobileWebDriverClient.waitForVisibilityOfElement(lbl_AllCard);
-        return mobileWebDriverClient.isMobileElementDisplayed(lbl_AllCard);
+       return mobileWebDriverClient.setTextAndEnter(txt_SearchText, strToSearch);
     }
 
 	public boolean clickFbPost() throws Exception {
