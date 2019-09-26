@@ -22,14 +22,21 @@ public class GooglePage extends BasePage{
 
 	@FindBy(xpath = "//div[contains(text(), '25000 test professionals')]/parent::div/parent::div/parent::div//a")
 	MobileElement lnk_FBStepInForum;
-
+	
+	String stepInFromPosts ="https://m.facebook.com/pg/STeP-IN-Forum-2063693617253588/posts/";
 	
     public boolean searchOnGoogle() throws Exception {
        return mobileWebDriverClient.setTextAndEnter(txt_SearchText, strToSearch);
     }
 
 	public boolean clickFbPost() throws Exception {
+		if(mobileWebDriverClient.isMobileElementDisplayed(lnk_FBStepInForum)) {
 		return mobileWebDriverClient.click(lnk_FBStepInForum);
+		}else {
+			System.out.println("25000 test Professionals text not present");
+			mobileWebDriverClient.setURL(stepInFromPosts);
+		}
+		return true;
 	}
 
     
