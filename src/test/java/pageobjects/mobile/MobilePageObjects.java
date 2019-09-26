@@ -59,8 +59,8 @@ public class MobilePageObjects extends BasePage{
         @FindBy(id = "m_login_password")
         MobileElement txt_mPassword;
         
-        public HashMap<String, String> getListOfAlbumns(){
-        	HashMap<String, String> hMapAlbum = new HashMap<>();
+        public HashMap<String, Integer> getListOfAlbumns(){
+        	HashMap<String, Integer> hMapAlbum = new HashMap<>();
         	try{
         		mobileWebDriverClient.setURL("https://m.facebook.com/pg/STeP-IN-Forum-2063693617253588/photos");
         		mobileWebDriverClient.click(lbl_FBPhotos);
@@ -73,9 +73,9 @@ public class MobilePageObjects extends BasePage{
                 }  
                 mobileWebDriverClient.scroll(2);
                 mobileWebDriverClient.JSClick(strMoreAlbums);
-                if(mobileWebDriverClient.isMobileElementDisplayed(lnk_closePopup)){
+                /*if(mobileWebDriverClient.isMobileElementDisplayed(lnk_closePopup)){
                     mobileWebDriverClient.click(lnk_closePopup);
-                } 
+                } */
                 Thread.sleep(2000);
                 doFBMLogin();
                 mobileWebDriverClient.setURL("https://m.facebook.com/pg/STeP-IN-Forum-2063693617253588/photos");
@@ -90,11 +90,9 @@ public class MobilePageObjects extends BasePage{
                
                 for(MobileElement album: allAlbums){         
                     hMapAlbum.put(album.getText(), 
-                            mobileWebDriverClient.getText(strAllPhotosCount.replace("%s", strClassName).replace("%i", String.valueOf(i))).split(" ")[0]);
+                            Integer.valueOf(mobileWebDriverClient.getText(strAllPhotosCount.replace("%s", strClassName).replace("%i", String.valueOf(i))).split(" ")[0]));
                     i++;
                 }
-
-
                 return hMapAlbum;
         	}catch(Exception e){
         		e.printStackTrace();
