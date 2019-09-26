@@ -124,7 +124,6 @@ public class MobilePageObjects extends BasePage{
 
 	public boolean openFbPost() throws Exception {
 		try{
-			mobileWebDriverClient.click(lbl_FBReviews);
 			return mobileWebDriverClient.click(lbl_FBPosts);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -134,7 +133,6 @@ public class MobilePageObjects extends BasePage{
 
 	public boolean openPhotosPost() throws Exception{
 		try{
-			mobileWebDriverClient.scroll(4);
 			if(mobileWebDriverClient.isMobileElementDisplayed(lnk_closePopup)){
 				mobileWebDriverClient.click(lnk_closePopup);
 			}    
