@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import core.BaseTest;
+import pageobjects.desktop.FacebookPage;
 import pageobjects.desktop.SamplePageObject;
 
 public class StepInForum_FB_DesktopWeb extends BaseTest{
@@ -21,5 +22,11 @@ public class StepInForum_FB_DesktopWeb extends BaseTest{
         HashMap<String, Integer> finnall = desktop.getAllAlbumNames();
         System.out.println("Albums: \n"+finnall);
     }
+    
+    @Test
+	public void test01() {
+		FacebookPage facebook = new FacebookPage(driver);
+		facebook.downloadPhotos();
+	}
 	
 }

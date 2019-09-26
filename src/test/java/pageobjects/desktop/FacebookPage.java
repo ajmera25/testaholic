@@ -16,7 +16,7 @@ public class FacebookPage extends BasePage{
 		super(driver);
 	}
 
-	public boolean findPostWithMoreThanFourPhotos () {
+	public boolean downloadPhotos () {
 		boolean bval = false;
 		String firstPhoto = "//div[@class='_52db']/ancestor::a/parent::div/a";
 		try {
