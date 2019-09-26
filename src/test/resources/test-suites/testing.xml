@@ -2,6 +2,10 @@
 
 <suite name="smokeTests" parallel="tests" thread-count="20">
 	
+	<listeners>
+		<listener class-name="core.TestNGListenerAdapter"></listener>
+	</listeners>
+	
 	<test name ="StepInForum_FB_DesktopWeb">
 		<classes>
 			<class name="tests.StepInForum_FB_DesktopWeb"></class>
