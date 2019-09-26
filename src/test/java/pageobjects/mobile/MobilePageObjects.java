@@ -2,6 +2,9 @@ package pageobjects.mobile;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
+
 import javax.imageio.ImageIO;
 import org.openqa.selenium.support.FindBy;
 import core.BasePage;
@@ -31,9 +34,69 @@ public class MobilePageObjects extends BasePage{
         
         @FindBy(xpath = "//*[@id='popup_xout']")
         MobileElement lnk_closePopup;
+        
+        String strMoreAlbums  = "//a[contains(@href, '/albums')]";
+        
         String strFullSize  = "//a[text()='View full size']";
         
         String strNext = "//a[@data-sigil='touchable'][last()]";
+        
+        @FindBy(xpath = "//span[text()='Photos']")
+        MobileElement lbl_FBPhotos;
+        
+        @FindBy(xpath = "//span[text()='See All']")
+        MobileElement lbl_FBSeeAll;
+        
+        String strAllAlbums = "//div[@class = '%s']"; 
+        
+        String strAllPhotosCount = "(//div[@class = '%s']/parent::div/span/span)[%i]"; 
+        
+        String strGetClass = "//div[text() = 'Mobile Uploads']";
+        
+        @FindBy(id = "m_login_email")
+        MobileElement txt_mUsername;
+        
+        @FindBy(id = "m_login_password")
+        MobileElement txt_mPassword;
+        
+        public HashMap<String, String> getListOfAlbumns(){
+        	HashMap<String, String> hMapAlbum = new HashMap<>();
+        	try{
+        		mobileWebDriverClient.click(lbl_FBPhotos);
+                if(mobileWebDriverClient.isMobileElementDisplayed(lnk_closePopup)){
+                    mobileWebDriverClient.click(lnk_closePopup);
+                }   
+        		mobileWebDriverClient.click(lbl_FBSeeAll);
+                if(mobileWebDriverClient.isMobileElementDisplayed(lnk_closePopup)){
+                    mobileWebDriverClient.click(lnk_closePopup);
+                }  
+                mobileWebDriverClient.click(strMoreAlbums);
+                doFBMLogin();
+                mobileWebDriverClient.click(lbl_FBPhotos);
+                mobileWebDriverClient.click(strMoreAlbums);
+                
+                String strClassName = mobileWebDriverClient.getAttribute(strGetClass, "class");
+                
+                List<MobileElement> allAlbums = mobileWebDriverClient.findElements(strAllAlbums.replace("%s", strClassName));
+                int i = 1;
+               
+                for(MobileElement album: allAlbums){         
+                	hMapAlbum.put(album.getText(), 
+                			mobileWebDriverClient.getText(strAllPhotosCount.replace("%s", strClassName).replace("%i", String.valueOf(i))));
+                	i++;
+                }
+                return hMapAlbum;
+        	}catch(Exception e){
+        		System.out.println("Exception will be thrown");
+        	}
+			return hMapAlbum;        	
+        }
+        
+        public void doFBMLogin() throws Exception{
+        	mobileWebDriverClient.setText(txt_mUsername, "pratik3");
+        	mobileWebDriverClient.setText(txt_mPassword, "AJmera@2428");
+        	mobileWebDriverClient.sendEnterKey();
+        }
     
     public boolean searchOnGoogle() throws Exception 
     {
