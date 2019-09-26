@@ -1,15 +1,13 @@
 package pageobjects.mobile;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import org.openqa.selenium.support.FindBy;
+
 import core.BasePage;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import utilities.FileUtils;
 
 public class MobilePageObjects extends BasePage{
 	
@@ -146,22 +144,16 @@ public class MobilePageObjects extends BasePage{
 		return false;
 	}
 
-	public void clickImage() throws Exception {
-		try{
-			int imageCounter=1;
-			while(imageCounter<=5) {    
-				mobileWebDriverClient.waitForVisibilityOfElementLocatedBy(strFullSize);
-				String src = mobileWebDriverClient.getAttribute(strFullSize, "href");
-				System.out.println(src);
-				BufferedImage bufferedImage = ImageIO.read(new URL(src));
-				String filePath = System.getProperty("user.dir") + "/src/test/resources/mobilephotos/" + imageCounter + ".jpg";
-				File outputfile = new File(filePath);
-				imageCounter++;
-				ImageIO.write(bufferedImage, "jpeg", outputfile);
-				mobileWebDriverClient.JSClick(strNext);
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
+    public void clickImage() throws Exception {
+        int imageCounter=1;
+        FileUtils fileUtils = new FileUtils();
+        while(imageCounter<=5) {    
+            mobileWebDriverClient.waitForVisibilityOfElementLocatedBy(strFullSize);
+            String src = mobileWebDriverClient.getAttribute(strFullSize, "href");
+            System.out.println(src);
+            fileUtils.downloadImage(src,"mobile",imageCounter);
+            imageCounter++;
+            mobileWebDriverClient.JSClick(strNext);
+        }
+    }
 }
