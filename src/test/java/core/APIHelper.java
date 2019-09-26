@@ -25,14 +25,15 @@ public class APIHelper {
 				.url(BaseTest.Config.getProperty("hostName"))
 				.post(requestBody)
 				.build();
+		String responseData = null;
 		Response response = null;
 		try {
 			response = client.newCall(request).execute();
-
+			responseData = response.body().string();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return response.body().string();
+		return responseData;
 	}
 
 }
