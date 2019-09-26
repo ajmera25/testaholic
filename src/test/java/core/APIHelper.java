@@ -39,7 +39,7 @@ public class APIHelper {
 					.addTextBody("text", message, ContentType.DEFAULT_BINARY).build();
 
 			// build http request and assign multipart upload data
-			HttpUriRequest request = RequestBuilder.post("http://cgi-lib.berkeley.edu/ex/fup.cgi").setEntity(data).build();
+			HttpUriRequest request = RequestBuilder.post(BaseTest.Config.getProperty("hostName")).setEntity(data).build();
 
 			System.out.println("Executing request " + request.getRequestLine());
 
