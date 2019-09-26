@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -35,9 +36,16 @@ public class FacebookPage extends BasePage{
 			webDriverClient.click("//a[text()='Not Now']");
 			webDriverClient.scrollWindowVerticallyToClickableElement(webDriverClient.findElement(firstPhoto));
 			webDriverClient.click(firstPhoto);
-			 FileUtils fileUtils = new FileUtils();
+			webDriverClient.waitForVisibilityOfElementLocatedBy("//img[@class='spotlight']");
+			FileUtils fileUtils = new FileUtils();
+			String src = "";
 			for(int i=1; i<=5; i++) {
-				String src = webDriverClient.findElement("//img[@class='spotlight']").getAttribute("src");
+				try {
+					src = webDriverClient.findElement("//img[@class='spotlight']").getAttribute("src");
+				}catch(StaleElementReferenceException ex) {
+					src = webDriverClient.findElement("//img[@class='spotlight']").getAttribute("src");
+				}
+				
 				bval = fileUtils.downloadImage(src,"Desktop", i);
 				if(!bval) {
 					return false;
