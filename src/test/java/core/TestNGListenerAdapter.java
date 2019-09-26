@@ -2,8 +2,6 @@ package core;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -22,14 +20,15 @@ public class TestNGListenerAdapter implements ITestListener {
 	protected static ExtentTest test;
 
 	public void onTestStart(ITestResult result) {
-		System.out.println("on test start");
+		System.out.println("On test start");
 		test = reports.startTest(result.getMethod().getMethodName());
-		test.log(LogStatus.INFO, result.getMethod().getMethodName() + "test is started");
+		test.log(LogStatus.INFO, result.getMethod().getMethodName() + " Test Started");
+		test.log(LogStatus.INFO, result.getMethod().getDescription());
 	}
 
 	public void onTestSuccess(ITestResult result) {
 		System.out.println("On test success");
-		test.log(LogStatus.PASS, result.getMethod().getMethodName() + "test is passed");
+		test.log(LogStatus.PASS, result.getMethod().getMethodName() + " Test PASSED");
 	}
 	
 	public void onTestFailure(ITestResult result) {
@@ -43,7 +42,7 @@ public class TestNGListenerAdapter implements ITestListener {
 			driver = driverFactory.getAppiumDriver();
 		}
 		
-		test.log(LogStatus.FAIL, result.getMethod().getMethodName() + "test is failed");
+		test.log(LogStatus.FAIL, result.getMethod().getMethodName() + " Test FAILED");
 		TakesScreenshot ts = (TakesScreenshot) driver;
 		File src = ts.getScreenshotAs(OutputType.FILE);
 		try {
@@ -58,12 +57,12 @@ public class TestNGListenerAdapter implements ITestListener {
 	
 	public void onTestSkipped(ITestResult result) {
 		System.out.println("On test skipped");
-		test.log(LogStatus.SKIP, result.getMethod().getMethodName() + "test is skipped");
+		test.log(LogStatus.SKIP, result.getMethod().getMethodName() + " Test SKIPPED");
 	}
 	
 	public void onStart(ITestContext context) {
 		System.out.println("On start");
-		reports = new ExtentReports(System.getProperty("user.dir") + "/target/" + new SimpleDateFormat("yyyy-MM-dd hh-mm").format(new Date()) + "_Report.html");
+		reports = new ExtentReports(System.getProperty("user.dir") + "/target/Report.html");
 	}
 	
 	public void onFinish(ITestContext context) {

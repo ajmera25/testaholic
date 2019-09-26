@@ -95,12 +95,17 @@ public class FacebookPage extends BasePage{
 	
 	public HashMap<String, Integer> getAllAlbumNames() throws Exception {
 		HashMap<String,Integer> albumDetails = new HashMap<>();
-		for(int i=0;i<movieName_list.size();i++) {
-			String albumName=movieName_list.get(i).getText();
-			String number_of_photos=number_list.get(i).getText().split(" ")[0];
-			int noOfPhotos = Integer.valueOf(number_of_photos);
-			albumDetails.put(albumName, noOfPhotos);
+		try {
+			for(int i=0;i<movieName_list.size();i++) {
+				String albumName=movieName_list.get(i).getText();
+				String number_of_photos=number_list.get(i).getText().split(" ")[0];
+				int noOfPhotos = Integer.valueOf(number_of_photos);
+				albumDetails.put(albumName, noOfPhotos);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
+		
 		return albumDetails;
 	}
 	
