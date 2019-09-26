@@ -24,7 +24,7 @@ public class StepInForum_FB_Mobile extends BaseTest{
         Assert.assertTrue(mobileFlow.openPhotosPost(), "Unable to Open Photos");
     }
     
-    @Test
+    @Test(dependsOnMethods = "test001_StepInFB")
     public void test002_DownloadPhotosAndCheckSize() throws Exception{
     	SoftAssert ImageSizeVerification = new SoftAssert();
     	mobileFlow = new MobilePageObjects(appiumDriver);

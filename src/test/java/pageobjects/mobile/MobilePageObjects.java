@@ -73,9 +73,6 @@ public class MobilePageObjects extends BasePage{
                 }  
                 mobileWebDriverClient.scroll(2);
                 mobileWebDriverClient.JSClick(strMoreAlbums);
-                /*if(mobileWebDriverClient.isMobileElementDisplayed(lnk_closePopup)){
-                    mobileWebDriverClient.click(lnk_closePopup);
-                } */
                 Thread.sleep(2000);
                 doFBMLogin();
                 mobileWebDriverClient.setURL("https://m.facebook.com/pg/STeP-IN-Forum-2063693617253588/photos");
