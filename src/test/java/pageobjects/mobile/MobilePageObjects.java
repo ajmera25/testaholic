@@ -64,13 +64,15 @@ public class MobilePageObjects extends BasePage{
 	
 	String fbUrl = "https://m.facebook.com";
 	String fbLoginNotNow =".//span[text()='Not Now']";
-
+	
+	String stepInFromPhotos ="https://m.facebook.com/STeP-IN-Forum-2063693617253588/photos";
+	
 	public HashMap<String, Integer> getListOfAlbumns(){
 		HashMap<String, Integer> hMapAlbum = new HashMap<>();
 		try{
 			mobileWebDriverClient.setURL(fbUrl);
 			doFBMLogin();
-			mobileWebDriverClient.setURL("https://m.facebook.com/STeP-IN-Forum-2063693617253588/photos");
+			mobileWebDriverClient.setURL(stepInFromPhotos);
 			mobileWebDriverClient.click(lbl_FBSeeAll);
 			//mobileWebDriverClient.scroll(5);
 			mobileWebDriverClient.JSClick(strMoreAlbums);
