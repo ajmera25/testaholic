@@ -31,7 +31,7 @@ public class FacebookPage extends BasePage{
 
 	public boolean downloadPhotos () {
 		boolean bval = false;
-		String firstPhoto = "//div[@class='_52db']/ancestor::a/parent::div/a";
+		String firstPhoto = "//div[contains(text(),'+')]/parent::div/parent::div/ancestor::a/parent::div/a";
 		try {
 			webDriverClient.scrollWindow();
 			webDriverClient.waitForElementToBeClickable("//a[text()='Not Now']");
@@ -95,6 +95,11 @@ public class FacebookPage extends BasePage{
 	
 	public boolean isStepInForumFBPageDisplayed() throws Exception {
 		return webDriverClient.isWebElementDisplayed("//a[@class='_64-f' and @href='https://www.facebook.com/STeP-IN-Forum-2063693617253588/']");
+		
+	}
+	public boolean navigateToPosts() throws Exception {
+		webDriverClient.click("//span[text()='Posts']");
+		return webDriverClient.getCurrentURL().contains("posts");
 		
 	}
 }

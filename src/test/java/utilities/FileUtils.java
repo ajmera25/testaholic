@@ -54,7 +54,7 @@ public class FileUtils {
 	public int getFileSizeInKb(String filePath) {
         File file = new File(filePath);
         int fileSize = 0;
-        if (!file.exists() || !file.isFile()) {
+        if (file.exists()) {
             fileSize = (int) file.length() / 1024 ;
         System.out.println(fileSize);
         }
