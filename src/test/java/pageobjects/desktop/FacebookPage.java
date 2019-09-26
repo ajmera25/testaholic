@@ -97,4 +97,9 @@ public class FacebookPage extends BasePage{
 		return webDriverClient.isWebElementDisplayed("//a[@class='_64-f' and @href='https://www.facebook.com/STeP-IN-Forum-2063693617253588/']");
 		
 	}
+	public boolean navigateToPosts() throws Exception {
+		webDriverClient.click("//span[text()='Posts']");
+		return webDriverClient.getCurrentURL().contains("posts");
+		
+	}
 }
