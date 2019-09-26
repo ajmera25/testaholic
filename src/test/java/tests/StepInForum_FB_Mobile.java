@@ -39,7 +39,7 @@ public class StepInForum_FB_Mobile extends BaseTest{
         int imageCounter=1;
         utilities.FileUtils fileUtils = new utilities.FileUtils();
         while(imageCounter<=5) {
-            String filePath = System.getProperty("user.dir") + "/target/MobilePhotos" + imageCounter + ".jpg";
+            String filePath = System.getProperty("user.dir") + "/target/MobilePhotos/" + imageCounter + ".jpg";
             int size = ( fileUtils).getFileSizeInKb(filePath);
             ImageSizeVerification.assertTrue(size > 0, "Image Size is not greater than O KB for Image: " +  imageCounter);
             imageCounter++;

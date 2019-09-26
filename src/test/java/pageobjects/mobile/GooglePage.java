@@ -1,14 +1,10 @@
 package pageobjects.mobile;
 
-import java.util.HashMap;
-import java.util.List;
-
 import org.openqa.selenium.support.FindBy;
 
 import core.BasePage;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import utilities.FileUtils;
 
 public class GooglePage extends BasePage{
 
