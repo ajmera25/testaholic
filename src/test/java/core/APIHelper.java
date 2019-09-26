@@ -14,6 +14,7 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.testng.Reporter;
 
 public class APIHelper {
 
@@ -33,7 +34,7 @@ public class APIHelper {
 			// build http request and assign multipart upload data
 			HttpUriRequest request = RequestBuilder.post(BaseTest.Config.getProperty("hostName")).setEntity(data).build();
 
-			System.out.println("Executing request " + request.getRequestLine());
+			Reporter.log("Executing request " + request.getRequestLine(),true);
 
 			// Create a custom response handler
 			ResponseHandler< String > responseHandler = response -> {
@@ -47,7 +48,7 @@ public class APIHelper {
             };
 			responseBody = httpclient.execute(request, responseHandler);
 			System.out.println("----------------------------------------");
-			System.out.println(responseBody);
+			Reporter.log(responseBody + true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

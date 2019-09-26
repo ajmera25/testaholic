@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.openqa.selenium.support.FindBy;
+import org.testng.Reporter;
 
 import core.BasePage;
 import io.appium.java_client.AppiumDriver;
@@ -121,7 +122,7 @@ public class FacebookPage extends BasePage{
         while(imageCounter<=5) {    
             mobileWebDriverClient.waitForVisibilityOfElementLocatedBy(strFullSize);
             String src = mobileWebDriverClient.getAttribute(strFullSize, "href");
-            System.out.println(src);
+            Reporter.log(src,true);
             fileUtils.downloadImage(src,"Mobile",imageCounter);
             imageCounter++;
             mobileWebDriverClient.JSClick(strNext);

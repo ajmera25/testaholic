@@ -1,6 +1,7 @@
 package pageobjects.mobile;
 
 import org.openqa.selenium.support.FindBy;
+import org.testng.Reporter;
 
 import core.BasePage;
 import io.appium.java_client.AppiumDriver;
@@ -33,7 +34,7 @@ public class GooglePage extends BasePage{
 		if(mobileWebDriverClient.isMobileElementDisplayed(lnk_FBStepInForum)) {
 		return mobileWebDriverClient.click(lnk_FBStepInForum);
 		}else {
-			System.out.println("25000 test Professionals text not present");
+			Reporter.log("25000 test Professionals text not present",true);
 			mobileWebDriverClient.setURL(stepInFromPosts);
 			return true;
 		}

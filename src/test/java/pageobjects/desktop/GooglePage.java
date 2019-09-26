@@ -5,6 +5,7 @@ import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Reporter;
 
 import core.BasePage;
 
@@ -38,7 +39,7 @@ public class GooglePage extends BasePage{
 		if(webDriverClient.isWebElementDisplayed(xpath)) {
 		webDriverClient.click(xpath);
 	}else {
-		System.out.println("25000 test Professionals text not present");
+		Reporter.log("25000 test Professionals text not present",true);
 		webDriverClient.setURL(stepInFromPosts);
 	}}
 	

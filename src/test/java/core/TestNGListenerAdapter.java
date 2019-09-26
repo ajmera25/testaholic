@@ -11,6 +11,7 @@ import org.testng.ISuiteListener;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import org.testng.Reporter;
 
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
@@ -22,23 +23,23 @@ public class TestNGListenerAdapter implements ITestListener, ISuiteListener {
 	protected static ExtentTest test;
 
 	public void onTestStart(ITestResult result) {
-		System.out.println("On test start");
+		Reporter.log("Test started::" + result.getMethod().getMethodName(),true);
 		test = reports.startTest(result.getMethod().getMethodName());
 		test.log(LogStatus.INFO, result.getMethod().getMethodName() + " Test Started");
 		test.log(LogStatus.INFO, result.getMethod().getDescription());
 	}
 
 	public void onTestSuccess(ITestResult result) {
-		System.out.println("On test success");
+		Reporter.log("Test success::" + result.getMethod().getMethodName(),true);
 		test.log(LogStatus.PASS, result.getMethod().getMethodName() + " Test PASSED");
 	}
 	
 	public void onTestFailure(ITestResult result) {
-		System.out.println("On test failure");
+		Reporter.log("Test failure::" + result.getMethod().getMethodName(),true);
 		String platform = result.getInstanceName();
 		DriverManagerFactory driverFactory = new DriverManagerFactory();
 		WebDriver driver;
-		if (platform.contains("Desktop")) {
+		if (platform.contains("DesktopWeb")) {
 			driver = driverFactory.getDesktopWebDriver();
 		} else {
 			driver = driverFactory.getAppiumDriver();
@@ -58,17 +59,17 @@ public class TestNGListenerAdapter implements ITestListener, ISuiteListener {
 	}
 	
 	public void onTestSkipped(ITestResult result) {
-		System.out.println("On test skipped");
+		Reporter.log("Test skipped::" + result.getMethod().getMethodName(),true);
 		test.log(LogStatus.SKIP, result.getMethod().getMethodName() + " Test SKIPPED");
 	}
 	
 	public void onStart(ISuite context) {
-		System.out.println("On suite start");
+		Reporter.log("-----------Suite started-----------");
 		reports = new ExtentReports(System.getProperty("user.dir") + "/target/Report.html");
 	}
 	
 	public void onFinish(ISuite context) {
-		System.out.println("On suite finish");
+		Reporter.log("-----------On suite finish---------------");
 		reports.endTest(test);
 		reports.flush();
 	}
