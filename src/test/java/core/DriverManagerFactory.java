@@ -39,7 +39,7 @@ public class DriverManagerFactory {
 	}
 	
 	public void initializeDriver(String platform)  {
-		if(platform.equals("desktop")) {
+		if(platform.equals("desktopWeb")) {
 			initializeChromeWebDriver();
 		} else if(platform.equals("mobileWeb")) {
 			initializeMobileWebDriver();

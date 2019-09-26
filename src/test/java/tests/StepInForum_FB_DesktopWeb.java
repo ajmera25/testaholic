@@ -13,6 +13,11 @@ import utilities.JsonTemplate;
 
 public class StepInForum_FB_DesktopWeb extends BaseTest{
 	
+	public StepInForum_FB_DesktopWeb() {
+		super("desktopWeb");
+		// TODO Auto-generated constructor stub
+	}
+
 	GooglePage google = null;
 	FacebookPage facebook = null;
 	HashMap<String, Integer> albumNames;

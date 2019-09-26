@@ -22,8 +22,12 @@ public class BaseTest {
 	public String teamName = "Testaholic";
 	public WebDriver driver;
 	public AppiumDriver appiumDriver;
-
 	public static Properties Config;
+	String platform;
+	
+	protected BaseTest(String platform){
+		this.platform = platform;
+	}
 
 	@BeforeSuite
 	public void suiteSetUp() {
@@ -37,12 +41,10 @@ public class BaseTest {
 	}
 
 	@BeforeClass
-	public void beforeClass(ITestContext ctx) {
-		//String platform = Config.getProperty("platform");
-		String test = ctx.getName();
+	public void beforeClass() {
 		DriverManagerFactory driverFactory = new DriverManagerFactory();
-		if (test.contains("Desktop")) {
-			driverFactory.initializeDriver("desktop");
+		if (platform.equalsIgnoreCase("desktopWeb")) {
+			driverFactory.initializeDriver("desktopWeb");
 			driver = driverFactory.getDesktopWebDriver();
 			driver.get(Config.getProperty("baseUrl"));
 		} else {
@@ -54,12 +56,11 @@ public class BaseTest {
 
 	@AfterClass
 	public void afterClass() throws Exception {
-		DriverManagerFactory dmf = new DriverManagerFactory();
 		try{
-			if(dmf.getDesktopWebDriver()!=null)
-				dmf.getDesktopWebDriver().quit();
-			if(dmf.getAppiumDriver()!=null)
-				dmf.getAppiumDriver().quit();
+			if(driver!=null)
+				driver.quit();
+			if(appiumDriver!=null)
+				appiumDriver.quit();
 
 		}catch(Exception e){
 			e.printStackTrace();

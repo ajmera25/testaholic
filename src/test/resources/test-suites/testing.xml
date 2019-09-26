@@ -1,19 +1,14 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="smokeTests" parallel="tests" thread-count="20">
+<suite name="smokeTests" parallel="instances" thread-count="20">
 	
 	<listeners>
 		<listener class-name="core.TestNGListenerAdapter"></listener>
 	</listeners>
 	
-	<test name ="StepInForum_FB_DesktopWeb">
+	<test name ="StepInForum">
 		<classes>
-			<class name="tests.StepInForum_FB_DesktopWeb"></class>
-		</classes>
-	</test>
-	 <test name ="StepInForum_FB_Mobile">
-		<classes>
-			<class name="tests.StepInForum_FB_Mobile"></class>
+			<class name="core.TestFactory"></class>
 		</classes>
 	</test>
 </suite>
