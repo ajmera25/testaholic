@@ -78,10 +78,18 @@ public class FacebookPage extends BasePage{
 	}
 	
 	public boolean navigateToAlbums() throws Exception {
-		webDriverClient.scrollWindowVerticallyToClickableElement(photos);
-		webDriverClient.click("//span[text()='Photos']");
-		webDriverClient.click("//div[text()='Albums']/parent::div/following-sibling::div/a/div[text()='See All']");
-		return webDriverClient.getCurrentURL().contains("tab=albums");
+		String seeAll = "//div[text()='Albums']/parent::div/following-sibling::div/a/div[text()='See All']";
+		try {
+			webDriverClient.scrollWindowVerticallyToClickableElement(photos);
+			webDriverClient.click("//span[text()='Photos']");
+			webDriverClient.waitForElementToBeClickable(seeAll);
+			webDriverClient.click(seeAll);
+			return webDriverClient.getCurrentURL().contains("tab=albums");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+		
 	}
 	
 	public HashMap<String, Integer> getAllAlbumNames() throws Exception {
