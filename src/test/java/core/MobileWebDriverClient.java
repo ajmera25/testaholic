@@ -28,7 +28,7 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
 
 public class MobileWebDriverClient {
-	
+
 	protected AppiumDriver myDriver;
 	private String myBrowser;
 	private String myUrl;
@@ -38,7 +38,7 @@ public class MobileWebDriverClient {
 	private final int pageloadtimeout = 60;
 	private final int WEBDRIVER_CLIENT_EXPLICIT_DELAY = 90;
 	public WebDriverWait webdriverWait ;
-		
+
 	public MobileWebDriverClient(AppiumDriver driver) {
 		this.myDriver = driver;
 		webdriverWait = new WebDriverWait(myDriver, WEBDRIVER_CLIENT_EXPLICIT_DELAY);
@@ -46,21 +46,21 @@ public class MobileWebDriverClient {
 		setImplicitWait(implicitWait);
 		((RemoteWebDriver) myDriver).setFileDetector(new LocalFileDetector());
 	}
-	
+
 	public void setImplicitWait(int implicitWait) {
 		myDriver.manage().timeouts()
 		.implicitlyWait(implicitWait, TimeUnit.MILLISECONDS);
 	}
-	
+
 	public void resetImplicitWait() {
 		myDriver.manage().timeouts()
 		.implicitlyWait(implicitWait, TimeUnit.MILLISECONDS);
 	}
-	
+
 	public void setExplicitWait(int explicitWait) {
 		webdriverWait = new WebDriverWait(myDriver,explicitWait, 60);
 	}
-	
+
 	public void resetExplicitWait() {
 		webdriverWait = new WebDriverWait(myDriver,WEBDRIVER_CLIENT_EXPLICIT_DELAY, 60);
 	}
@@ -69,16 +69,16 @@ public class MobileWebDriverClient {
 		myDriver.manage().timeouts()
 		.pageLoadTimeout(pageLoadTimeoutWait, TimeUnit.SECONDS);
 	}
-	
+
 	public void resetPageLoadTimeout() {
 		myDriver.manage().timeouts()
 		.pageLoadTimeout(pageloadtimeout, TimeUnit.SECONDS);
 	}
-	
+
 	public WebDriver getWebDriver() {
 		return myDriver;
 	}
-	
+
 	public void setBrowser(String browserOption) {
 		myBrowser = browserOption;
 	}
@@ -86,11 +86,11 @@ public class MobileWebDriverClient {
 	public String getBrowser() {
 		return myBrowser;
 	}
-	
+
 	public Integer getWindowHeight() {
 		return getWindowSize().height;
 	}
-	
+
 	public Integer getWindowWidth() {
 		return getWindowSize().width;
 	}
@@ -98,7 +98,7 @@ public class MobileWebDriverClient {
 	public Dimension getWindowSize() {
 		return myDriver.manage().window().getSize();
 	}
-	
+
 	public void clearCookies() throws Exception {
 		try{
 			myDriver.manage().deleteAllCookies();
@@ -107,7 +107,7 @@ public class MobileWebDriverClient {
 			ex.printStackTrace();
 		}	
 	}
-	
+
 	public void setURL(String url) {
 		Reporter.log("Opening URL: " + url, true);
 		myUrl = url;
@@ -126,7 +126,7 @@ public class MobileWebDriverClient {
 		currentUrl = myDriver.getCurrentUrl();
 		return currentUrl;
 	}
-	
+
 	public void quit() {
 		myDriver.quit();
 	}
@@ -134,28 +134,28 @@ public class MobileWebDriverClient {
 	public void close() {
 		myDriver.close();
 	}
-	
+
 	public boolean setText(MobileElement element, String inputText) throws Exception {
 		try{
-		element.sendKeys(inputText);
-		return true;
+			element.sendKeys(inputText);
+			return true;
 		}
 		catch(Exception e){
 			throw new TestFrameworkException("Failed to set text field with input text " + inputText,e);
 		}
 	}
-	
+
 	public void clearText(MobileElement element) throws Exception {
 		try{
-		click(element);
-		element.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-		element.sendKeys(Keys.DELETE);		
+			click(element);
+			element.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+			element.sendKeys(Keys.DELETE);		
 		}
 		catch(Exception e){
 			throw new TestFrameworkException("Failed to clear text field " + element.toString(),e);
 		}
 	}
-	
+
 	public void clearTextAndType(MobileElement element,
 			String inputText) throws Exception {
 		if(isMobileElementEnabled(element)){
@@ -167,12 +167,12 @@ public class MobileWebDriverClient {
 			throw new TestFrameworkException("Locator does not exists or is disabled");
 		}
 	}
-	
+
 	public boolean setText(String locator, String inputText) throws Exception {
 		MobileElement element = findElement(locator);
 		return setText(element, inputText);
 	}
-	
+
 	public boolean setTextAndTab(MobileElement element, String inputText) throws Exception {
 		boolean bval;
 		try{
@@ -183,7 +183,7 @@ public class MobileWebDriverClient {
 			throw new TestFrameworkException("Failed to set text field with input text " + inputText,e);
 		}
 	}
-	
+
 	public boolean setTextAndTab(String locator, String inputText) throws Exception {
 		MobileElement element = findElement(locator);
 		return setTextAndTab(element, inputText);
@@ -199,13 +199,13 @@ public class MobileWebDriverClient {
 			throw new TestFrameworkException("Failed to set text field with input text " + inputText,e);
 		}
 	}
-	
+
 	public boolean setTextAndEnter(String locator, String inputText) throws Exception {
 		MobileElement element = findElement(locator);	
 		return setTextAndEnter(element, inputText);
 	}
-	
-	
+
+
 	public boolean setTextAndEscape(MobileElement element, String inputText) throws Exception {
 		boolean bval;
 		try{
@@ -216,13 +216,13 @@ public class MobileWebDriverClient {
 			throw new TestFrameworkException("Failed to set text field with input text " + inputText,e);
 		}
 	}	
-	
+
 	public boolean setTextAndEscape(String locator, String inputText) throws Exception {
 		MobileElement element = findElement(locator);	
 		return setTextAndEscape(element, inputText);
 	}
-	
-	
+
+
 	/**
 	 * Waits for the visibility of the element (MobileElement) on DOM of a page
 	 *
@@ -231,9 +231,9 @@ public class MobileWebDriverClient {
 	 * @throws Exception
 	 */
 	public MobileElement waitForVisibilityOfElement(MobileElement element) throws Exception{
-			return (MobileElement) webdriverWait.until(ExpectedConditions.visibilityOf(element));
+		return (MobileElement) webdriverWait.until(ExpectedConditions.visibilityOf(element));
 	}
-	
+
 	/**
 	 * Wait for visibility of locator on DOM of a page by xpath
 	 *
@@ -242,9 +242,9 @@ public class MobileWebDriverClient {
 	 * @throws Exception
 	 */
 	public MobileElement waitForVisibilityOfElementLocatedBy(String locator) throws Exception {
-			return (MobileElement) webdriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
+		return (MobileElement) webdriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
 	}
-	
+
 	/**
 	 * Wait for visibility of locator on DOM of a page by xpath
 	 *
@@ -252,13 +252,13 @@ public class MobileWebDriverClient {
 	 * @return List<MobileElement>
 	 * @throws Exception
 	 */
-//	public List<MobileElement> waitForVisibilityOfElementsLocatedBy(String locator) throws Exception {
-//			return webdriverWait.until(ExpectedConditions
-//					.visibilityOfAllElementsLocatedBy(By.xpath(locator)));
-//	}
-	
-	
-	
+	//	public List<MobileElement> waitForVisibilityOfElementsLocatedBy(String locator) throws Exception {
+	//			return webdriverWait.until(ExpectedConditions
+	//					.visibilityOfAllElementsLocatedBy(By.xpath(locator)));
+	//	}
+
+
+
 	/**
 	 * Wait for element to be visible and enabled such that you
 	 * can click it.
@@ -268,10 +268,10 @@ public class MobileWebDriverClient {
 	 * @throws Exception
 	 */
 	public MobileElement waitForElementToBeClickable(MobileElement element) throws Exception {
-			return (MobileElement) webdriverWait.until(ExpectedConditions
-					.elementToBeClickable(element));
+		return (MobileElement) webdriverWait.until(ExpectedConditions
+				.elementToBeClickable(element));
 	}
-	
+
 	/**
 	 * Wait for element to be visible and enabled such that you
 	 * can click it.
@@ -284,7 +284,7 @@ public class MobileWebDriverClient {
 		return (MobileElement) webdriverWait.until(ExpectedConditions
 				.elementToBeClickable(By.xpath(xpath)));
 	}
-	
+
 	/**
 	 * Check to see if element is location is greater than window size
 	 * then will window scroll to it if true
@@ -293,7 +293,7 @@ public class MobileWebDriverClient {
 	 * @return MobileElement
 	 * @throws Exception
 	 */
-	
+
 	public MobileElement scrollWindowVerticallyToClickableElement(String element_xpath) throws Exception {
 		try{
 			MobileElement ele = findElement(element_xpath);
@@ -305,7 +305,7 @@ public class MobileWebDriverClient {
 
 	}
 
-	
+
 	/**
 	 * Check to see if element is location is greater than window size
 	 * then will window scroll to it if true
@@ -319,25 +319,25 @@ public class MobileWebDriverClient {
 		int winSize = 0;
 		int eleYPosition = 0;
 		int count = 1;
-		
+
 		try {
-				String javascript = "window.scrollTo(0,";
-				jse.executeScript(javascript + "0)");
-	
-				winSize = getWindowHeight()-200;
-				eleYPosition = element.getLocation().getY();
-				
-				while(eleYPosition > winSize &&  (200*count) < eleYPosition) {
-					jse.executeScript(javascript + (200*count) + ")");
-					count++;
-				}
+			String javascript = "window.scrollTo(0,";
+			jse.executeScript(javascript + "0)");
+
+			winSize = getWindowHeight()-200;
+			eleYPosition = element.getLocation().getY();
+
+			while(eleYPosition > winSize &&  (200*count) < eleYPosition) {
+				jse.executeScript(javascript + (200*count) + ")");
+				count++;
+			}
 		}
 		catch(Exception e) {
 			Reporter.log("scrollVerticallyToClickableElement not able to execute, count:" + count + " element position:" + eleYPosition, true);
 		}
 		return waitForElementToBeClickable(element);
-}
-	
+	}
+
 	public boolean isDialogItemVisibleVertically(String xPath, String dialog_obj_class) throws Exception {
 		JavascriptExecutor jse = myDriver;
 		int count = 0;
@@ -361,10 +361,10 @@ public class MobileWebDriverClient {
 		String javascript_returnClientHeight = "return document.querySelectorAll('" + scrollable_obj_css + "')[0].clientHeight";
 		String scrollHeight = jse.executeScript(javascript_returnScrollHeight).toString();
 		String clientHeight = jse.executeScript(javascript_returnClientHeight).toString();
-				
+
 		if(Integer.parseInt(scrollHeight) > Integer.parseInt(clientHeight)) {
 			jse.executeScript(javascript + "0");
-			
+
 			//Scroll the scrollable object (A) until the target object (B) location is less than the location of scrollable (A) + height of scrollable object (A)
 			while(((myDriver.findElement(By.cssSelector(scrollable_obj_css)).getLocation().getY() + 
 					myDriver.findElement(By.cssSelector(scrollable_obj_css)).getSize().getHeight()) < myDriver.findElement(By.xpath(xPath)).getLocation().getY()) 
@@ -373,7 +373,7 @@ public class MobileWebDriverClient {
 				count++;
 			}
 			if(count >= 50) throw new Exception ("Cannot find element in object " + scrollable_obj_css);
-			
+
 			bval = true;
 		}
 		else
@@ -382,25 +382,25 @@ public class MobileWebDriverClient {
 
 		return bval;
 	}
-	
+
 	public boolean isItemVisibleHorizontallyInScrollableObject(String xPath, String scrollable_obj_css) throws Exception {
 		JavascriptExecutor jse = myDriver;
 		int count = 0;
 		String javascript = "document.querySelectorAll('" + scrollable_obj_css + "')[0].scrollLeft = ";
 		try{
-		if(myDriver.findElements(By.cssSelector(scrollable_obj_css)).size() > 0) {	
-			jse.executeScript(javascript + "0");
-			
-			//Scroll the scrollable object (A) until the target object (B) location is less than the location of scrollable (A) + height of scrollable object (A)
-			while(((myDriver.findElement(By.cssSelector(scrollable_obj_css)).getLocation().getX() + 
-					myDriver.findElement(By.cssSelector(scrollable_obj_css)).getSize().getWidth()) < myDriver.findElement(By.xpath(xPath)).getLocation().getX()) 
-					&& count < 50){
-				jse.executeScript(javascript + (200*count));
-				count++;
-			}
-			if(count >= 50) throw new Exception ("Cannot find element in object " + scrollable_obj_css);
-	
-			return true;
+			if(myDriver.findElements(By.cssSelector(scrollable_obj_css)).size() > 0) {	
+				jse.executeScript(javascript + "0");
+
+				//Scroll the scrollable object (A) until the target object (B) location is less than the location of scrollable (A) + height of scrollable object (A)
+				while(((myDriver.findElement(By.cssSelector(scrollable_obj_css)).getLocation().getX() + 
+						myDriver.findElement(By.cssSelector(scrollable_obj_css)).getSize().getWidth()) < myDriver.findElement(By.xpath(xPath)).getLocation().getX()) 
+						&& count < 50){
+					jse.executeScript(javascript + (200*count));
+					count++;
+				}
+				if(count >= 50) throw new Exception ("Cannot find element in object " + scrollable_obj_css);
+
+				return true;
 			}
 		}
 		catch(Exception ex) {
@@ -408,9 +408,9 @@ public class MobileWebDriverClient {
 		}
 		return false;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Wait for element to be invisible or not present on the DOM
 	 *
@@ -427,7 +427,7 @@ public class MobileWebDriverClient {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * First checks if element is displayed or not? If true then checks if it is enabled
 	 *
@@ -447,7 +447,7 @@ public class MobileWebDriverClient {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Is this element displayed or not? This method avoids the problem of having to parse an
 	 * element's "style" attribute.
@@ -462,7 +462,7 @@ public class MobileWebDriverClient {
 		}catch(Exception e){}
 		return false;
 	}
-	
+
 	public boolean waitForVisibilityThenCheckIsMobileElementDisplayed(String locator) throws Exception {
 		MobileElement element;
 		try{
@@ -475,7 +475,7 @@ public class MobileWebDriverClient {
 		}
 		return element.isDisplayed();
 	}
-	
+
 	public boolean isMobileElementDisplayed(MobileElement element, int timeOutInMilliseconds) {
 		try{
 			setImplicitWait(timeOutInMilliseconds);
@@ -487,7 +487,7 @@ public class MobileWebDriverClient {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Is this locator displayed or not? This method avoids the problem of having to parse an
 	 * element's "style" attribute.
@@ -505,7 +505,7 @@ public class MobileWebDriverClient {
 		}catch(Exception e){}
 		return false;
 	}
-	
+
 	public boolean isMobileElementDisplayed(String locator, int timeOutInMilliseconds){
 		try{
 			setImplicitWait(timeOutInMilliseconds);
@@ -518,7 +518,7 @@ public class MobileWebDriverClient {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Find the element based on provided locating technique
 	 *
@@ -552,9 +552,9 @@ public class MobileWebDriverClient {
 	 * @throws Exception
 	 */
 	public List<MobileElement> findElements(String locator) throws Exception {
-			return myDriver.findElements(By.xpath(locator));
+		return myDriver.findElements(By.xpath(locator));
 	}
-	
+
 	public List<MobileElement> findElements(String locator,int timeOutInMilliseconds) throws Exception {
 		List<MobileElement> elements = null;
 		try{
@@ -567,42 +567,42 @@ public class MobileWebDriverClient {
 		return elements;
 	}
 
-	
+
 	public boolean click(MobileElement element) throws Exception {
 		try {
 			waitForVisibilityOfElement(element);
 			waitForElementToBeClickable(element);
-				element.click();
-				return true;
+			element.click();
+			return true;
 
 
 		}catch(Exception e){
-				throw new TestFrameworkException("Failed to click, as either unable to locate element OR met an exception " + element.toString(),e);
+			throw new TestFrameworkException("Failed to click, as either unable to locate element OR met an exception " + element.toString(),e);
 		}
 	}
-	
+
 	public boolean doubleclick(MobileElement element) throws Exception {
 		Actions action = new Actions(myDriver);
 		try {
 			waitForVisibilityOfElement(element);
-		if(!isMobileElementDisplayed(element)){
-			scrollWindowVerticallyToClickableElement(element);
-		}
-		
-		if(isMobileElementEnabled(element)){
-			action.doubleClick(element).perform();
-			return true;
-		}
+			if(!isMobileElementDisplayed(element)){
+				scrollWindowVerticallyToClickableElement(element);
+			}
+
+			if(isMobileElementEnabled(element)){
+				action.doubleClick(element).perform();
+				return true;
+			}
 			else{
 				throw new TestFrameworkException("Double click failed as the element is disabled " + element.toString());
 			}
 		} catch(Exception e){
-				throw new TestFrameworkException("Failed to double click, as either unable to locate element OR met an exception " + element.toString(),e);
+			throw new TestFrameworkException("Failed to double click, as either unable to locate element OR met an exception " + element.toString(),e);
 		}
 	}
-	
-	
-	
+
+
+
 	public boolean right_click(MobileElement element) throws Exception {
 		Actions oAction = new Actions(myDriver);
 		try {
@@ -621,7 +621,7 @@ public class MobileWebDriverClient {
 			throw new TestFrameworkException("Failed to right click, as either unable to locate element OR met an exception " + element.toString(),e);
 		}
 	}
-	
+
 	/** 
 	 * Right clicks at a point with an offset from the top-left corner of passed element. 
 	 *
@@ -643,84 +643,84 @@ public class MobileWebDriverClient {
 			throw new TestFrameworkException("Right click failed as the element is not visible." + locator);
 		}
 	}
-	
-		
+
+
 	public boolean click(String locator) throws Exception {
-			MobileElement element = null;
-			int retryattempts = 0;
-			boolean bval = false;
-			try{
-				List<MobileElement> MobileElements = findElements(locator);
-				if(MobileElements.size() > 0){
-					for(MobileElement ele : MobileElements)
-							if(isMobileElementEnabled(ele))
-							{	
-								bval = click(ele);
-								break;
-							}
-					}
-				else if (findElements(locator).size() < 1) {
-						scrollWindowVerticallyToClickableElement(element);
-						click(element);
-					}
-			}
-			catch(StaleElementReferenceException ser) {
-				while(retryattempts < 2) {
-					try{	
-						findElement(locator).click();
-						break;
-						}
-					catch(StaleElementReferenceException ex) {}
-							retryattempts++;
-				}
-
-				
-			}
-
-			
-			return bval;
-		}
-
-	public boolean doubleclick(String locator) throws Exception {
 		MobileElement element = null;
 		int retryattempts = 0;
+		boolean bval = false;
 		try{
-				if(findElements(locator).size() == 1){
-					element =findElement(locator);
-					doubleclick(element);
-				}
-				else if (findElements(locator).size() < 1) {
-					scrollWindowVerticallyToClickableElement(element);
-					doubleclick(element);
-				}
-				
-				
-				//Reporter.log("locator: " + locator, true);
-				
+			List<MobileElement> MobileElements = findElements(locator);
+			if(MobileElements.size() > 0){
+				for(MobileElement ele : MobileElements)
+					if(isMobileElementEnabled(ele))
+					{	
+						bval = click(ele);
+						break;
+					}
+			}
+			else if (findElements(locator).size() < 1) {
+				scrollWindowVerticallyToClickableElement(element);
+				click(element);
+			}
 		}
 		catch(StaleElementReferenceException ser) {
 			while(retryattempts < 2) {
 				try{	
 					findElement(locator).click();
 					break;
-					}
-					catch(StaleElementReferenceException ex) {}
-						retryattempts++;
+				}
+				catch(StaleElementReferenceException ex) {}
+				retryattempts++;
+			}
+
+
+		}
+
+
+		return bval;
+	}
+
+	public boolean doubleclick(String locator) throws Exception {
+		MobileElement element = null;
+		int retryattempts = 0;
+		try{
+			if(findElements(locator).size() == 1){
+				element =findElement(locator);
+				doubleclick(element);
+			}
+			else if (findElements(locator).size() < 1) {
+				scrollWindowVerticallyToClickableElement(element);
+				doubleclick(element);
+			}
+
+
+			//Reporter.log("locator: " + locator, true);
+
+		}
+		catch(StaleElementReferenceException ser) {
+			while(retryattempts < 2) {
+				try{	
+					findElement(locator).click();
+					break;
+				}
+				catch(StaleElementReferenceException ex) {}
+				retryattempts++;
 			}
 		}
 		return true;
 	}
-	
-	
-	
+
+
+
 	public boolean right_click(String locator) throws Exception {
 		MobileElement element = findElement(locator);	
 		return right_click(element);
 	}
 
-	
-	
-	
+
+
+
 	/**
 	 * Clicks supplied MobileElement (use this method when obvious ways to click using webdriver implementations fail)
 	 * @param element
@@ -756,7 +756,7 @@ public class MobileWebDriverClient {
 		}
 		return bval;
 	}
-	
+
 	/**
 	 * Get the value of provided attribute of a MobileElement 
 	 *
@@ -768,17 +768,17 @@ public class MobileWebDriverClient {
 	public String getAttribute(MobileElement element, String attribute) throws Exception {
 		return element.getAttribute(attribute);
 	}
-	
+
 	public String getAttribute(String locator, String attribute) throws Exception {
 		MobileElement element = (MobileElement) myDriver.findElement(By.xpath(locator));
 		return element.getAttribute(attribute);
 	}
-	
+
 	public String getCssValue(String locator, String attribute) throws Exception {
 		MobileElement element = (MobileElement) myDriver.findElement(By.xpath(locator));
 		return element.getCssValue(attribute);
 	}
-	
+
 	public String getText(MobileElement element) throws Exception {
 		return element.getText();
 	}
@@ -787,7 +787,7 @@ public class MobileWebDriverClient {
 		MobileElement element = (MobileElement) myDriver.findElement(By.xpath(locator));
 		return element.getText();
 	}
-	
+
 	/**
 	 * Moves the mouse to the middle of the element, so that element is scrolled into view
 	 *
@@ -799,7 +799,7 @@ public class MobileWebDriverClient {
 		action.moveToElement(element).build().perform();
 		//Thread.sleep(2000);
 	}
-	
+
 	/**
 	 * Moves the mouse to the middle of the element, so that element is scrolled into view
 	 *
@@ -819,7 +819,7 @@ public class MobileWebDriverClient {
 			throw new TestFrameworkException("Hover on locator failed: " + locator,e);
 		}
 	}
-	
+
 	/**
 	 * Moves the mouse to the middle of element and scrolls the element in view
 	 *
@@ -841,7 +841,7 @@ public class MobileWebDriverClient {
 		action.moveToElement(element);
 		action.click().build().perform();
 	}
-	
+
 	/**
 	 * Moves the mouse to the middle of the element, so that element is scrolled into view
 	 * click and hold
@@ -852,7 +852,7 @@ public class MobileWebDriverClient {
 		MobileElement element = (MobileElement) myDriver.findElement(By.xpath(locator));
 		hoverAndHoldMouseButton(element);
 	}
-	
+
 	/**
 	 * Moves the mouse to the middle of the element, so that element is scrolled into view
 	 * and perform click action on it
@@ -867,7 +867,7 @@ public class MobileWebDriverClient {
 		Thread.sleep(1000);
 		action.click(element).perform();
 	}
-	
+
 	/**
 	 * Moves the mouse to the middle of the element, so that element is scrolled into view
 	 * and perform click and hold action on it
@@ -882,7 +882,7 @@ public class MobileWebDriverClient {
 		Thread.sleep(1000);
 		action.clickAndHold(element).perform();
 	}
-	
+
 	/**
 	 * Moves the mouse to the middle of the element, so that element is scrolled into view
 	 * and perform click action on it
@@ -894,8 +894,8 @@ public class MobileWebDriverClient {
 		MobileElement element = (MobileElement) myDriver.findElement(By.xpath(locator));
 		hoverAndClick(element);
 	}
-	
-	
+
+
 	/**
 	 * Select all options that display text matching the argument.
 	 *
@@ -930,14 +930,14 @@ public class MobileWebDriverClient {
 						if(ele.findElement(By.xpath("..")).equals(elementPast)) 
 							return true;
 					}		
-					
+
 				}
 			}else{
 				Select select = new Select(element);
 				select.selectByVisibleText(visibleText);
 				throw new TestFrameworkException("Locator does not exist or is disabled : " + visibleText);
 			}
-			
+
 
 		}
 		catch (StaleElementReferenceException se) {
@@ -948,7 +948,7 @@ public class MobileWebDriverClient {
 		}
 		return false;
 	}
-	
+
 	public boolean setframeTextArea(String txtAreaId, String textValue) throws Exception {
 		try{
 			//Assuming there is always single frame in the screen
@@ -962,7 +962,7 @@ public class MobileWebDriverClient {
 		}
 	}
 
-	
+
 	/**
 	 * Sets text in the given text field
 	 *
@@ -979,16 +979,16 @@ public class MobileWebDriverClient {
 			}
 		}catch(Exception ex) {
 			throw new TestFrameworkException("Failed to set text field " + txtField + " with " + inputText,ex);
-		
+
 		}
 		return false;
 	}
-	
+
 	public boolean setCheckbox(String locator, boolean state) throws Exception {
 		MobileElement element = findElement(locator);
 		return setCheckbox(element, state);
 	}
-	
+
 	public boolean setCheckbox(MobileElement element, boolean state) throws Exception {
 		if((!element.isSelected() && state) || (element.isSelected() && !state)){
 			return click(element);
@@ -1011,7 +1011,7 @@ public class MobileWebDriverClient {
 			throw new TestFrameworkException("Failed to select radio " + radioField + " with " + option,ex);
 		}
 	}
-	
+
 	public boolean setCheckbox(String xpath, String name, String isChecked) throws Exception {
 		boolean bval = false;
 		try{
@@ -1035,21 +1035,21 @@ public class MobileWebDriverClient {
 					break;
 				}
 			}
-			
+
 		}
 		catch(Exception ex) {
 			throw new TestFrameworkException("Failed to set checkbox for " + xpath,ex);
 		}
 		return bval;
 	}
-	
+
 	public boolean multipeSelection(List<String> selectList) throws Exception {
 		try {
 			Actions actions = new Actions(myDriver);
 			actions.keyDown(Keys.CONTROL);
 			for(String selectitem : selectList){
 				if(!findElement(selectitem).getAttribute("class").contains("Highlighted"))
-				actions.click(findElement(selectitem));
+					actions.click(findElement(selectitem));
 			}
 			actions.keyUp(Keys.CONTROL).build().perform();
 			return true;
@@ -1057,8 +1057,8 @@ public class MobileWebDriverClient {
 			throw new TestFrameworkException("Failed to multiple select for " + selectList.toString(),e);
 		} 
 	}
-	
-	
+
+
 	public boolean dragAndDrop(String elementXpath, Integer xPostion, Integer yPosition) throws Exception {
 		MobileElement dragElement = null;
 		try{
@@ -1068,9 +1068,9 @@ public class MobileWebDriverClient {
 			Actions builder = new Actions(myDriver); 
 			Action dragAndDrop = builder.dragAndDropBy(dragElement, xPostion, yPosition).build();
 			dragAndDrop.perform();	
-			
+
 			return true;
-			
+
 		}
 		catch(Exception ex) {
 			throw new TestFrameworkException("failed drag and drop item " + elementXpath,ex);		
@@ -1083,7 +1083,7 @@ public class MobileWebDriverClient {
 			dragElement = findElement(elementXpath);
 			scrollWindowVerticallyToClickableElement(dragElement);
 			int widthSize = dragElement.getSize().getWidth()- 2;
-			
+
 			Actions builder = new Actions(myDriver); 
 			Action resize = builder.moveToElement(dragElement, widthSize, 0).clickAndHold().
 					moveByOffset(xPostion, yPosition).release().build();
@@ -1093,7 +1093,7 @@ public class MobileWebDriverClient {
 			throw new TestFrameworkException("failed to move by Offset " + elementXpath,ex);		
 		}
 	}
-	
+
 	/**
 	 * Sends the 'Tab' key stroke
 	 */
@@ -1101,12 +1101,12 @@ public class MobileWebDriverClient {
 		Actions action = new Actions(myDriver);
 		action.sendKeys(Keys.TAB).build().perform();
 	}
-	
+
 	public void sendEnterKey() {
 		Actions action = new Actions(myDriver);
 		action.sendKeys(Keys.ENTER).build().perform();
 	}
-	
+
 	/**
 	 * Sends the 'Tab' key stroke
 	 */
@@ -1114,7 +1114,7 @@ public class MobileWebDriverClient {
 		Actions action = new Actions(myDriver);
 		action.sendKeys(Keys.ESCAPE).build().perform();
 	}
-	
+
 	/**
 	 * Send specified key chords (Sequence of key strokes)
 	 */
@@ -1122,19 +1122,21 @@ public class MobileWebDriverClient {
 		Actions action = new Actions(myDriver);
 		action.sendKeys(keyChord).build().perform();
 	}
-	
-	public void scrollElementToCentre(MobileElement locator) {
-	String scrollElementIntoMiddle = "var viewPortHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);"
-	                                            + "var elementTop = arguments[0].getBoundingClientRect().top;"
-	                                            + "window.scrollBy(0, elementTop-(viewPortHeight/2));";
 
-	((JavascriptExecutor) myDriver).executeScript(scrollElementIntoMiddle, locator);
-}
-	
-	public void scroll() throws Exception {
-		new TouchAction(myDriver).press(PointOption.point(0, 300)).waitAction().moveTo(PointOption.point(0, 100)).release().perform();
+	public void scrollElementToCentre(MobileElement locator) {
+		String scrollElementIntoMiddle = "var viewPortHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);"
+				+ "var elementTop = arguments[0].getBoundingClientRect().top;"
+				+ "window.scrollBy(0, elementTop-(viewPortHeight/2));";
+
+		((JavascriptExecutor) myDriver).executeScript(scrollElementIntoMiddle, locator);
 	}
-	
+
+	public void scroll(int counter) throws Exception {
+		for(int i=0;i<=counter;i++) {
+			new TouchAction(myDriver).press(PointOption.point(0, 600)).waitAction().moveTo(PointOption.point(0, 400)).release().perform();
+		}
+	}
+
 	public void scrollToExact(MobileElement m) throws Exception {
 		TouchActions action = new TouchActions(myDriver);
 		action.scroll(m, 100, 100);
@@ -1144,32 +1146,32 @@ public class MobileWebDriverClient {
 	}
 	public void scrollAndClick(String visibleText) {
 		MobileElement element = (MobileElement) myDriver.findElement(MobileBy.AndroidUIAutomator(
-		        "new UiScrollable(new UiSelector().resourceId(\"com.android.vending:id/tab_recycler_view\")).getChildByText("
-		        + "new UiSelector().className(\"android.widget.TextView\"), \"Games We Are Playing\")"));
+				"new UiScrollable(new UiSelector().resourceId(\"com.android.vending:id/tab_recycler_view\")).getChildByText("
+						+ "new UiSelector().className(\"android.widget.TextView\"), \"Games We Are Playing\")"));
 
 		//Perform the action on the element
 		element.click();
-		}
-	
-	public void scrollWindowToFindElement(String locator) throws Exception {
-		        try {
-		        	//int count =1;
-		        	while(findElements(locator).size()<1) {
-		        	((JavascriptExecutor) myDriver).executeScript("window.scrollBy(0,4000)"); 
-		        	Thread.sleep(1000);
-		        	} } catch (Exception ex) {
-		        	throw new TestFrameworkException("failed to find element",ex);
-		    }
 	}
-	
+
+	public void scrollWindowToFindElement(String locator) throws Exception {
+		try {
+			//int count =1;
+			while(findElements(locator).size()<1) {
+				((JavascriptExecutor) myDriver).executeScript("window.scrollBy(0,4000)"); 
+				Thread.sleep(1000);
+			} } catch (Exception ex) {
+				throw new TestFrameworkException("failed to find element",ex);
+			}
+	}
+
 	public void scrollWindow() throws Exception {
-        try {
-        	((JavascriptExecutor) myDriver).executeScript("window.scrollBy(0,4000)"); 
-        	}catch (Exception ex) {
-        	throw new TestFrameworkException("failed to find element",ex);
-    }
-}
-	
+		try {
+			((JavascriptExecutor) myDriver).executeScript("window.scrollBy(0,4000)"); 
+		}catch (Exception ex) {
+			throw new TestFrameworkException("failed to find element",ex);
+		}
+	}
+
 	public String getScreenAsBase64() {
 		return ((TakesScreenshot) myDriver).getScreenshotAs(OutputType.BASE64);
 	}
