@@ -36,14 +36,16 @@ public class FacebookPage extends BasePage{
 			webDriverClient.click("//a[text()='Not Now']");
 			webDriverClient.scrollWindowVerticallyToClickableElement(webDriverClient.findElement(firstPhoto));
 			webDriverClient.click(firstPhoto);
-			webDriverClient.waitForVisibilityOfElementLocatedBy("//img[@class='spotlight']");
+			String image = "//img[@class='spotlight']";
 			FileUtils fileUtils = new FileUtils();
 			String src = "";
 			for(int i=1; i<=5; i++) {
 				try {
-					src = webDriverClient.findElement("//img[@class='spotlight']").getAttribute("src");
+					webDriverClient.waitForVisibilityOfElementLocatedBy(image);
+					src = webDriverClient.findElement(image).getAttribute("src");
 				}catch(StaleElementReferenceException ex) {
-					src = webDriverClient.findElement("//img[@class='spotlight']").getAttribute("src");
+					webDriverClient.waitForVisibilityOfElementLocatedBy(image);
+					src = webDriverClient.findElement(image).getAttribute("src");
 				}
 				
 				bval = fileUtils.downloadImage(src,"Desktop", i);
@@ -52,7 +54,7 @@ public class FacebookPage extends BasePage{
 				}
 				webDriverClient.JSClick("//a[contains(@class,'snowliftPager next')]");
 			}
-			
+			webDriverClient.sendEscapeKey();
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -64,7 +66,7 @@ public class FacebookPage extends BasePage{
 	public boolean verifyPhotoSize() {
 		boolean bval = false;
 		for(int i=1; i<=5; i++) {
-			String filePath = System.getProperty("user.dir") + "/target/WebPhotos/" +i+ ".jpg";
+			String filePath = System.getProperty("user.dir") + "/target/Photos/" +i+ ".jpg";
 			File file = new File(filePath);
 			bval = file.length() / 1024 > 0;
 			if(!bval) {
