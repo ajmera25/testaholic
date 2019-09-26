@@ -7,19 +7,19 @@ import org.testng.annotations.Test;
 
 import core.BaseTest;
 import pageobjects.desktop.FacebookPage;
-import pageobjects.desktop.SamplePageObject;
+import pageobjects.desktop.GooglePage;
 
 public class StepInForum_FB_DesktopWeb extends BaseTest{
 	
-	SamplePageObject desktop = null;
+	GooglePage google = null;
 	FacebookPage facebook = null;
 	
     @Test
     public void stepInFB() throws Exception{
-    	desktop = new SamplePageObject(driver);
+    	google = new GooglePage(driver);
     	facebook = new FacebookPage(driver);
-        desktop.search("step-in forum facebook");
-        desktop.clickOnResultWithText("25000 test professionals");
+    	google.search("step-in forum facebook");
+    	google.clickOnResultWithText("25000 test professionals");
         Assert.assertTrue(facebook.isStepInForumFBPageDisplayed(),"Error! Unable to navigate to Step In forum facebook page");
         //Assert.assertTrue(desktop.navigateToPosts(),"Unable to navigate to posts");
     }
