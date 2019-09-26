@@ -2,9 +2,9 @@
 
 <suite name="smokeTests" parallel="tests"  thread-count="20">
 	
-	<test name = "">
+	<test name = "SampleWeb">
 		<classes>
-			<class name=""></class>
+			<class name="tests.SampleMobile"></class>
 		</classes>
 	</test>
 	

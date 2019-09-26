@@ -5,6 +5,7 @@ import java.net.URL;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -64,9 +65,9 @@ public class DriverManagerFactory {
 	
 	public void initializeMobileWebDriver() {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
-		capabilities.setCapability(CapabilityType.BROWSER_NAME, "chrome");
-		capabilities.setCapability("deviceName", BaseTest.Config.getProperty("deviceName"));
-        capabilities.setCapability("platformVersion", BaseTest.Config.getProperty("platformVersion"));
+		capabilities.setCapability(CapabilityType.BROWSER_NAME, BrowserType.CHROME);
+		capabilities.setCapability("deviceName", "9243934");
+//        capabilities.setCapability("platformVersion", BaseTest.Config.getProperty("platformVersion"));
         capabilities.setCapability("platformName", "Android");
 		try {
 			setAppiumDriver(new AppiumDriver(new URL(hub), capabilities));

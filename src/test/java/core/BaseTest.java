@@ -38,7 +38,7 @@ public class BaseTest {
 			driver = driverFactory.getDesktopWebDriver();
 			driver.get(Config.getProperty("baseUrl"));
 		} else {
-			driverFactory.initializeDriver("mobileWeb");
+			driverFactory.initializeDriver("native");
 			appiumDriver = driverFactory.getAppiumDriver();
 		}		
 	}

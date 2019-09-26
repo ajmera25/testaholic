@@ -9,5 +9,10 @@ public class SamplePageObject extends BasePage{
 	public SamplePageObject(AppiumDriver<MobileElement> appiumdriver) {
 		super(appiumdriver);
 	}
+	
+	public void scroll() throws Exception 
+	{
+		mobileWebDriverClient.scroll();
+	}
 
 }

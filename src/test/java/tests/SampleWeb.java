@@ -8,6 +8,7 @@ public class SampleWeb extends BaseTest{
 	
 	@Test
     public void method(){
+		
     }
 	
 	
