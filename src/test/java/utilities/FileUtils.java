@@ -1,10 +1,14 @@
 package utilities;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Instant;
+
+import javax.imageio.ImageIO;
 
 public class FileUtils {
 
@@ -30,5 +34,18 @@ public class FileUtils {
 		}
 		return fileName;
 	}
+	
+    public void downloadImage(String src, String string,int fileName) {
+        // TODO Auto-generated method stub
+        try {
+        BufferedImage bufferedImage = ImageIO.read(new URL(src));
+        String filePath = System.getProperty("user.dir") + "/src/test/resources/mobilephotos/" + fileName + ".jpg";
+        File outputfile = new File(filePath);
+        ImageIO.write(bufferedImage, "jpeg", outputfile);
+    }catch (IOException e) {
+        e.printStackTrace();
+    }
+    }
+
 
 }
