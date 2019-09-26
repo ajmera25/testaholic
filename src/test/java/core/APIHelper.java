@@ -1,11 +1,13 @@
 package core;
 
-import okhttp3.*;
 
+import okhttp3.*;
+import utilities.FileUtils;
+import utilities.JsonTemplate;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class APIHelper {
 
@@ -22,7 +24,8 @@ public class APIHelper {
 		Request request = new Request.Builder()
 				.header("Content-Type", "multipart/form-data")
 				.header("Accept", "text/html")
-				.url(BaseTest.Config.getProperty("hostName"))
+				.url("https://cgi-lib.berkeley.edu/ex/fup.cgi")
+//				.url(BaseTest.Config.getProperty("hostName"))
 				.post(requestBody)
 				.build();
 		String responseData = null;
@@ -36,4 +39,15 @@ public class APIHelper {
 		return responseData;
 	}
 
+
+	public static void main(String[] args) {
+		String teamName = "Testaholic";
+		Map<String, Integer> photos = new HashMap<String, Integer>();
+		photos.put("Album 1",123);
+		photos.put("Album 2",12);
+		String reqPath = new FileUtils().createJSONFile(new JsonTemplate(teamName, photos).getJsonString());
+		APIHelper apiHelper = new APIHelper();
+		String response = apiHelper.uploadFile(reqPath);
+		System.out.println(response);
+	}
 }
