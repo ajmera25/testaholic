@@ -80,8 +80,8 @@ public class FacebookPage extends BasePage{
 	public boolean navigateToAlbums() throws Exception {
 		String seeAll = "//div[text()='Albums']/parent::div/following-sibling::div/a/div[text()='See All']";
 		try {
-			webDriverClient.scrollWindowVerticallyToClickableElement(photos);
-			webDriverClient.click("//span[text()='Photos']");
+			webDriverClient.waitForElementToBeClickable(photos);
+			webDriverClient.click(photos);
 			webDriverClient.waitForElementToBeClickable(seeAll);
 			webDriverClient.scrollWindowVerticallyToClickableElement(seeAll);
 			webDriverClient.click(seeAll);
