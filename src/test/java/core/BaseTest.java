@@ -40,6 +40,7 @@ public class BaseTest {
 		} else {
 			driverFactory.initializeDriver("mobileWeb");
 			appiumDriver = driverFactory.getAppiumDriver();
+			appiumDriver.get(Config.getProperty("baseUrl"));
 		}		
 	}
 

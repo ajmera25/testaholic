@@ -5,6 +5,7 @@ import java.net.URL;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -63,10 +64,12 @@ public class DriverManagerFactory {
 	}
 	
 	public void initializeMobileWebDriver() {
+		ChromeOptions options = new ChromeOptions();
 		DesiredCapabilities capabilities = new DesiredCapabilities();
-		capabilities.setCapability(CapabilityType.BROWSER_NAME, "chrome");
-		capabilities.setCapability("deviceName", BaseTest.Config.getProperty("deviceName"));
-        capabilities.setCapability("platformVersion", BaseTest.Config.getProperty("platformVersion"));
+		capabilities.setCapability(CapabilityType.BROWSER_NAME, BrowserType.CHROME);
+		capabilities.setCapability("language", "en");
+		capabilities.setCapability("locale", "US");
+		capabilities.setCapability("deviceName", "9243934");
         capabilities.setCapability("platformName", "Android");
 		try {
 			setAppiumDriver(new AppiumDriver(new URL(hub), capabilities));
@@ -83,7 +86,7 @@ public class DriverManagerFactory {
         capabilities.setCapability("appPackage", BaseTest.Config.getProperty("appPackage"));
         capabilities.setCapability("appActivity", BaseTest.Config.getProperty("appActivity"));
 		try {
-			setAppiumDriver(new AppiumDriver(new URL(hub), capabilities));
+			setAppiumDriver(new AppiumDriver(new URL("http://192.168.43.141:4723/wd/hub"), capabilities));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
