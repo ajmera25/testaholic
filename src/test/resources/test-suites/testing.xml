@@ -1,18 +1,15 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="smokeTests" parallel="tests"  thread-count="20">
+<suite name="smokeTests" parallel="tests" thread-count="20">
 	
-	<test name = "StepInForum_FB_DesktopWeb">
+	<test name ="StepInForum_FB_DesktopWeb">
 		<classes>
 			<class name="tests.StepInForum_FB_DesktopWeb"></class>
 		</classes>
 	</test>
-
-	
-<!-- 	<test name = "StepInForum_FB_Mobile"> -->
-<!-- 		<classes> -->
-<!-- 			<class name="tests.StepInForum_FB_Mobile"></class> -->
-<!-- 		</classes> -->
-<!-- 	</test> -->
-	
+	 <test name ="StepInForum_FB_Mobile">
+		<classes>
+			<class name="tests.StepInForum_FB_Mobile"></class>
+		</classes>
+	</test>
 </suite>
