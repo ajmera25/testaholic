@@ -64,7 +64,6 @@ public class FacebookPage extends BasePage{
 		for(int i=1; i<=5; i++) {
 			String filePath = System.getProperty("user.dir") + "/src/test/resources/WebPhotos/" +i+ ".jpg";
 			File file = new File(filePath);
-			System.out.println(file.length() / 1024);
 			bval = file.length() / 1024 > 0;
 			if(!bval) {
 				return false;
