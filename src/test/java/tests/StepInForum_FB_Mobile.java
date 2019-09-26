@@ -1,16 +1,9 @@
 package tests;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 
 import core.APIHelper;
 
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -45,27 +38,22 @@ public class StepInForum_FB_Mobile extends BaseTest{
             imageCounter++;
         }
         ImageSizeVerification.assertAll();
-        this.albumNames  = mobileFlow.getListOfAlbumns();
     }
-
+    
     @Test(dependsOnMethods = "test002_DownloadPhotosAndCheckSize" )
-    public void test003_verifyFileUploaded(){
+    public void test003_getListOfAlbums(){
+    	this.albumNames  = mobileFlow.getListOfAlbumns();
+    	Assert.assertFalse(albumNames.isEmpty(), "Failed to get album names");
+    }
+    
+    @Test(dependsOnMethods = "test003_getListOfAlbums" )
+    public void test004_verifyFileUploaded(){
         String fileName = new utilities.FileUtils().createJSONFile(new JsonTemplate(teamName, albumNames).getJsonString());
         APIHelper apiHelper = new APIHelper();
         String response = apiHelper.upload(fileName);
         Assert.assertTrue(response.contains(teamName),"Team name is not present in the response => "+response);
     }
     
-    @AfterMethod
-	public void takeScreenShotOnFailure(ITestResult testResult) throws IOException {
-		if (testResult.getStatus() == ITestResult.FAILURE) {
-			System.out.println(testResult.getStatus());
-			File scrFile = ((TakesScreenshot)appiumDriver).getScreenshotAs(OutputType.FILE);
-			 String filePath = System.getProperty("user.dir") + "/src/test/resources/screenshots/"+testResult.getName()+".png";
-			 FileUtils.copyFile(scrFile, new File(filePath));
-	   }        
-	}
-
 }
 
 
