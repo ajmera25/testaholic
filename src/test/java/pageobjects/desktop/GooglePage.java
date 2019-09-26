@@ -1,5 +1,5 @@
 package pageobjects.desktop;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -7,7 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import core.BasePage;
-public class SamplePageObject extends BasePage{
+
+public class GooglePage extends BasePage{
 
 	@FindBy(xpath="//span[text()='Photos']")
 	WebElement photos;
@@ -17,7 +18,7 @@ public class SamplePageObject extends BasePage{
 	
 	@FindBy(xpath="//div[contains(text(),'photos') and not(contains(text(),'Cover'))]")
 	List<WebElement> number_list;
-	public SamplePageObject(WebDriver driver) {
+	public GooglePage(WebDriver driver) {
 		super(driver);
 	}
 
