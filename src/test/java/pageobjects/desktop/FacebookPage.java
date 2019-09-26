@@ -36,7 +36,7 @@ public class FacebookPage extends BasePage{
 			webDriverClient.scrollWindow();
 			webDriverClient.waitForElementToBeClickable("//a[text()='Not Now']");
 			webDriverClient.click("//a[text()='Not Now']");
-			webDriverClient.scrollElementToCentre(webDriverClient.findElement(firstPhoto));
+			webDriverClient.scrollWindowVerticallyToClickableElement(webDriverClient.findElement(firstPhoto));
 			webDriverClient.click(firstPhoto);
 			for(int i=1; i<=5; i++) {
 				String src = webDriverClient.findElement("//img[@class='spotlight']").getAttribute("src");
@@ -75,11 +75,10 @@ public class FacebookPage extends BasePage{
 	}
 	
 	public boolean navigateToAlbums() throws Exception {
-		webDriverClient.scrollElementToCentre(photos);
+		webDriverClient.scrollWindowVerticallyToClickableElement(photos);
 		webDriverClient.click("//span[text()='Photos']");
-
 		webDriverClient.click("//div[text()='Albums']/parent::div/following-sibling::div/a/div[text()='See All']");
-	return webDriverClient.getCurrentURL().contains("tab=albums");
+		return webDriverClient.getCurrentURL().contains("tab=albums");
 	}
 	
 	public HashMap<String, Integer> getAllAlbumNames() throws Exception {
