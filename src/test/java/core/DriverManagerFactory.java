@@ -72,7 +72,7 @@ public class DriverManagerFactory {
 		capabilities.setCapability("deviceName", "9243934");
         capabilities.setCapability("platformName", "Android");
 		try {
-			setAppiumDriver(new AppiumDriver(new URL(hub), capabilities));
+			setAppiumDriver(new AppiumDriver(new URL("http://192.168.43.141:4723/wd/hub"), capabilities));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
