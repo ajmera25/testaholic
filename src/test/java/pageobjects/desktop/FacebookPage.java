@@ -13,6 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import core.BasePage;
+import utilities.FileUtils;
 
 public class FacebookPage extends BasePage{
 	
@@ -38,16 +39,10 @@ public class FacebookPage extends BasePage{
 			webDriverClient.click("//a[text()='Not Now']");
 			webDriverClient.scrollWindowVerticallyToClickableElement(webDriverClient.findElement(firstPhoto));
 			webDriverClient.click(firstPhoto);
+			 FileUtils fileUtils = new FileUtils();
 			for(int i=1; i<=5; i++) {
 				String src = webDriverClient.findElement("//img[@class='spotlight']").getAttribute("src");
-				BufferedImage bufferedImage = ImageIO.read(new URL(src));
-				String filePath = System.getProperty("user.dir") + "/src/test/resources/WebPhotos/" + i + ".jpg";
-				File file = new File(filePath);
-				ImageIO.write(bufferedImage, "jpeg", file);
-				bval = file.exists();
-				if(!bval) {
-					return false;
-				}
+				 fileUtils.downloadImage(src,"desktop",i);
 				webDriverClient.JSClick("//a[contains(@class,'snowliftPager next')]");
 			}
 			
