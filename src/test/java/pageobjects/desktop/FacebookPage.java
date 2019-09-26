@@ -30,7 +30,6 @@ public class FacebookPage extends BasePage{
 		boolean bval = false;
 		String firstPhoto = "//div[contains(text(),'+')]/parent::div/parent::div/ancestor::a/parent::div/a";
 		try {
-			Thread.sleep(5000);
 			webDriverClient.scrollWindow();
 			webDriverClient.waitForElementToBeClickable("//a[text()='Not Now']");
 			webDriverClient.click("//a[text()='Not Now']");
@@ -92,6 +91,7 @@ public class FacebookPage extends BasePage{
 	}
 	public boolean navigateToPosts() throws Exception {
 		webDriverClient.click("//span[text()='Posts']");
+		Thread.sleep(5000);
 		return webDriverClient.getCurrentURL().contains("posts");
 		
 	}
