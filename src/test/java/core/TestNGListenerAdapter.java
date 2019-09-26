@@ -39,7 +39,7 @@ public class TestNGListenerAdapter implements ITestListener, ISuiteListener {
 		String platform = result.getInstanceName();
 		DriverManagerFactory driverFactory = new DriverManagerFactory();
 		WebDriver driver;
-		if (platform.contains("DesktopWeb")) {
+		if (platform.contains("Desktop")) {
 			driver = driverFactory.getDesktopWebDriver();
 		} else {
 			driver = driverFactory.getAppiumDriver();
@@ -49,8 +49,8 @@ public class TestNGListenerAdapter implements ITestListener, ISuiteListener {
 		TakesScreenshot ts = (TakesScreenshot) driver;
 		File src = ts.getScreenshotAs(OutputType.FILE);
 		try {
-			FileUtils.copyFile(src, new File(System.getProperty("user.dir") + "/src/test/resources/screenshots/" + result.getMethod().getMethodName() + ".png"));
-			String file = test.addScreenCapture(System.getProperty("user.dir") + "/src/test/resources/screenshots/" + result.getMethod().getMethodName() + ".png");
+			FileUtils.copyFile(src, new File(System.getProperty("user.dir") + "/target/screenshots/" + result.getMethod().getMethodName() + ".png"));
+			String file = test.addScreenCapture(System.getProperty("user.dir") + "/target/screenshots/" + result.getMethod().getMethodName() + ".png");
 			test.log(LogStatus.FAIL, result.getMethod().getMethodName() + "test is failed", file);
 			test.log(LogStatus.FAIL, result.getMethod().getMethodName() + "test is failed", result.getThrowable().getMessage());
 		} catch (IOException e) {
