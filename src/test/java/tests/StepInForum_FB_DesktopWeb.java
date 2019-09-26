@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import core.APIHelper;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
@@ -16,7 +17,6 @@ import org.testng.annotations.Test;
 import core.BaseTest;
 import pageobjects.desktop.FacebookPage;
 import pageobjects.desktop.GooglePage;
-import utilities.FileUtils;
 import utilities.JsonTemplate;
 
 public class StepInForum_FB_DesktopWeb extends BaseTest{
@@ -51,7 +51,7 @@ public class StepInForum_FB_DesktopWeb extends BaseTest{
 
 	@Test(dependsOnMethods = "getAlbumNamesAndPhotoCount" )
 	public void verifyFileUploaded(){
-		String fileName = new FileUtils().createJSONFile(new JsonTemplate(teamName, albumNames).getJsonString());
+		String fileName = new utilities.FileUtils().createJSONFile(new JsonTemplate(teamName, albumNames).getJsonString());
 		APIHelper apiHelper = new APIHelper();
 		String response = apiHelper.upload(fileName);
 		Assert.assertTrue(response.contains(teamName),"Team name is not present in the response => "+response);
