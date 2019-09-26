@@ -18,7 +18,7 @@ public class MobilePageObjects extends BasePage{
 	@FindBy(xpath = "//input[@name='q']")
 	MobileElement txt_SearchText;
 
-	@FindBy(xpath = "//div[text() = 'All']]")
+	@FindBy(xpath = "//div[text() = 'All']")
 	MobileElement lbl_AllCard;
 
 	String strToSearch = "step-in forum facebook";
@@ -65,7 +65,7 @@ public class MobilePageObjects extends BasePage{
 	public HashMap<String, Integer> getListOfAlbumns(){
 		HashMap<String, Integer> hMapAlbum = new HashMap<>();
 		try{
-			mobileWebDriverClient.setURL("https://m.facebook.com/pg/STeP-IN-Forum-2063693617253588/photos");
+			mobileWebDriverClient.setURL("https://m.facebook.com/pg/STePINForum/photos");
 			mobileWebDriverClient.click(lbl_FBPhotos);
 			if(mobileWebDriverClient.isMobileElementDisplayed(lnk_closePopup)){
 				mobileWebDriverClient.click(lnk_closePopup);
@@ -78,7 +78,7 @@ public class MobilePageObjects extends BasePage{
 			mobileWebDriverClient.JSClick(strMoreAlbums);
 			Thread.sleep(2000);
 			doFBMLogin();
-			mobileWebDriverClient.setURL("https://m.facebook.com/pg/STeP-IN-Forum-2063693617253588/photos");
+			mobileWebDriverClient.setURL("https://m.facebook.com/pg/STePINForum/photos");
 			mobileWebDriverClient.click(lbl_FBPhotos);
 			mobileWebDriverClient.click(lbl_FBSeeAll);
 			mobileWebDriverClient.click(strMoreAlbums);
@@ -111,10 +111,11 @@ public class MobilePageObjects extends BasePage{
 		}
 	}
 
-	public boolean searchOnGoogle() throws Exception {
-		mobileWebDriverClient.setTextAndEnter(txt_SearchText, strToSearch);
-		return mobileWebDriverClient.isMobileElementDisplayed(lbl_AllCard);
-	}
+    public boolean searchOnGoogle() throws Exception {
+        mobileWebDriverClient.setTextAndEnter(txt_SearchText, strToSearch);
+        mobileWebDriverClient.waitForVisibilityOfElement(lbl_AllCard);
+        return mobileWebDriverClient.isMobileElementDisplayed(lbl_AllCard);
+    }
 
 	public boolean clickFbPost() throws Exception {
 		mobileWebDriverClient.click(lnk_FBStepInForum);
