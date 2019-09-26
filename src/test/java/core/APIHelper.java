@@ -1,5 +1,7 @@
 package core;
 
+import java.io.File;
+import java.io.IOException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
@@ -12,18 +14,8 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import utilities.FileUtils;
-import utilities.JsonTemplate;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-
 
 public class APIHelper {
-
-
 
 	public String upload(String fileName) {
 

@@ -1,12 +1,11 @@
 package tests;
 import java.util.HashMap;
 
-import core.APIHelper;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import core.APIHelper;
 import core.BaseTest;
 import pageobjects.mobile.FacebookPage;
 import pageobjects.mobile.GooglePage;
