@@ -31,7 +31,7 @@ public class FacebookPage extends BasePage{
 
 	public boolean downloadPhotos () {
 		boolean bval = false;
-		String firstPhoto = "//div[@class='_52db']/ancestor::a/parent::div/a";
+		String firstPhoto = "//div[contains(text(),'+')]/parent::div/parent::div/ancestor::a/parent::div/a";
 		try {
 			webDriverClient.scrollWindow();
 			webDriverClient.waitForElementToBeClickable("//a[text()='Not Now']");
