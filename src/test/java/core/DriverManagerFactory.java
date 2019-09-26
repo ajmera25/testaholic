@@ -74,7 +74,7 @@ public class DriverManagerFactory {
         capabilities.setCapability("platformName", "Android");
         options.merge(capabilities);
 		try {
-			setAppiumDriver(new AppiumDriver(new URL("http://192.168.43.141:4723/wd/hub"), options));
+			setAppiumDriver(new AppiumDriver(new URL(hub), options));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
@@ -88,7 +88,7 @@ public class DriverManagerFactory {
         capabilities.setCapability("appPackage", BaseTest.Config.getProperty("appPackage"));
         capabilities.setCapability("appActivity", BaseTest.Config.getProperty("appActivity"));
 		try {
-			setAppiumDriver(new AppiumDriver(new URL("http://192.168.43.141:4723/wd/hub"), capabilities));
+			setAppiumDriver(new AppiumDriver(new URL(hub), capabilities));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}

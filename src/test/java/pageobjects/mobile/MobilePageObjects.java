@@ -10,12 +10,14 @@ import org.openqa.selenium.support.FindBy;
 import core.BasePage;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import utilities.FileUtils;
 public class MobilePageObjects extends BasePage{
+	
     public MobilePageObjects(AppiumDriver<MobileElement> appiumdriver) {
         super(appiumdriver);
     }
     
-    @FindBy(xpath = "//input[@name='q']")
+    	@FindBy(xpath = "//input[@name='q']")
         MobileElement txt_SearchText;
        
         String strToSearch = "step-in forum facebook";
@@ -73,9 +75,6 @@ public class MobilePageObjects extends BasePage{
                 }  
                 mobileWebDriverClient.scroll(2);
                 mobileWebDriverClient.JSClick(strMoreAlbums);
-                /*if(mobileWebDriverClient.isMobileElementDisplayed(lnk_closePopup)){
-                    mobileWebDriverClient.click(lnk_closePopup);
-                } */
                 Thread.sleep(2000);
                 doFBMLogin();
                 mobileWebDriverClient.setURL("https://m.facebook.com/pg/STeP-IN-Forum-2063693617253588/photos");
@@ -114,26 +113,16 @@ public class MobilePageObjects extends BasePage{
         return mobileWebDriverClient.setTextAndEnter(txt_SearchText, strToSearch);
     }
     
-    public boolean clickFbPost() throws Exception 
-    {
+    public boolean clickFbPost() throws Exception{
         return mobileWebDriverClient.click(lnk_FBStepInForum);
     }
     
-    public boolean openFbPost() throws Exception 
-    {
-        try{
-            mobileWebDriverClient.click(lbl_FBReviews);
+    public boolean openFbPost() throws Exception{
             return mobileWebDriverClient.click(lbl_FBPosts);
-        }catch(Exception e){
-            System.out.println("Exception will be thrown");
-        }
-        return false;
     }
     
-    public boolean openPhotosPost() throws Exception 
-    {
+    public boolean openPhotosPost() throws Exception{
         try{
-            mobileWebDriverClient.scroll(4);
             if(mobileWebDriverClient.isMobileElementDisplayed(lnk_closePopup)){
                 mobileWebDriverClient.click(lnk_closePopup);
             }    
@@ -146,15 +135,13 @@ public class MobilePageObjects extends BasePage{
     
     public void clickImage() throws Exception {
         int imageCounter=1;
+        FileUtils fileUtils = new FileUtils();
         while(imageCounter<=5) {    
             mobileWebDriverClient.waitForVisibilityOfElementLocatedBy(strFullSize);
             String src = mobileWebDriverClient.getAttribute(strFullSize, "href");
             System.out.println(src);
-            BufferedImage bufferedImage = ImageIO.read(new URL(src));
-            String filePath = System.getProperty("user.dir") + "/src/test/resources/mobilephotos/" + imageCounter + ".jpg";
-            File outputfile = new File(filePath);
+            fileUtils.downloadImage(src,"mobile",imageCounter);
             imageCounter++;
-            ImageIO.write(bufferedImage, "jpeg", outputfile);
             mobileWebDriverClient.JSClick(strNext);
         }
     }
