@@ -1,6 +1,7 @@
 /bin/
 /target/
 .project
+/test-output/
 /.settings/
 .classpath
 /.idea/
