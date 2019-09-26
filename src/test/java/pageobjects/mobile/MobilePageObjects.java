@@ -62,6 +62,7 @@ public class MobilePageObjects extends BasePage{
         public HashMap<String, String> getListOfAlbumns(){
         	HashMap<String, String> hMapAlbum = new HashMap<>();
         	try{
+        		mobileWebDriverClient.setURL("https://m.facebook.com/pg/STeP-IN-Forum-2063693617253588/photos");
         		mobileWebDriverClient.click(lbl_FBPhotos);
                 if(mobileWebDriverClient.isMobileElementDisplayed(lnk_closePopup)){
                     mobileWebDriverClient.click(lnk_closePopup);
@@ -70,9 +71,16 @@ public class MobilePageObjects extends BasePage{
                 if(mobileWebDriverClient.isMobileElementDisplayed(lnk_closePopup)){
                     mobileWebDriverClient.click(lnk_closePopup);
                 }  
-                mobileWebDriverClient.click(strMoreAlbums);
+                mobileWebDriverClient.scroll(2);
+                mobileWebDriverClient.JSClick(strMoreAlbums);
+                if(mobileWebDriverClient.isMobileElementDisplayed(lnk_closePopup)){
+                    mobileWebDriverClient.click(lnk_closePopup);
+                } 
+                Thread.sleep(2000);
                 doFBMLogin();
+                mobileWebDriverClient.setURL("https://m.facebook.com/pg/STeP-IN-Forum-2063693617253588/photos");
                 mobileWebDriverClient.click(lbl_FBPhotos);
+                mobileWebDriverClient.click(lbl_FBSeeAll);
                 mobileWebDriverClient.click(strMoreAlbums);
                 
                 String strClassName = mobileWebDriverClient.getAttribute(strGetClass, "class");
@@ -81,21 +89,26 @@ public class MobilePageObjects extends BasePage{
                 int i = 1;
                
                 for(MobileElement album: allAlbums){         
-                	hMapAlbum.put(album.getText(), 
-                			mobileWebDriverClient.getText(strAllPhotosCount.replace("%s", strClassName).replace("%i", String.valueOf(i))));
-                	i++;
+                    hMapAlbum.put(album.getText(), 
+                            mobileWebDriverClient.getText(strAllPhotosCount.replace("%s", strClassName).replace("%i", String.valueOf(i))).split(" ")[0]);
+                    i++;
                 }
+
+
                 return hMapAlbum;
         	}catch(Exception e){
-        		System.out.println("Exception will be thrown");
+        		e.printStackTrace();
         	}
 			return hMapAlbum;        	
         }
         
         public void doFBMLogin() throws Exception{
+        	mobileWebDriverClient.waitForVisibilityOfElement(txt_mUsername);
         	mobileWebDriverClient.setText(txt_mUsername, "pratik3");
         	mobileWebDriverClient.setText(txt_mPassword, "AJmera@2428");
         	mobileWebDriverClient.sendEnterKey();
+        	Thread.sleep(2000);
+        	appiumDriver.navigate().back();
         }
     
     public boolean searchOnGoogle() throws Exception 
