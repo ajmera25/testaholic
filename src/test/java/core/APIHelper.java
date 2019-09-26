@@ -1,7 +1,17 @@
 package core;
 
 
-import okhttp3.*;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import utilities.FileUtils;
 import utilities.JsonTemplate;
 import java.io.File;
@@ -9,45 +19,51 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
 public class APIHelper {
 
-	private static final MediaType MEDIA_TYPE_TXT = MediaType.parse("application/json");
-	private final OkHttpClient client = new OkHttpClient();
 
-	public String uploadFile(String fileName) {
+
+	public String upload(String fileName) {
+
 		File file = new File(System.getProperty("user.dir") + "/src/test/resources/testdata/" + fileName);
-		RequestBody requestBody = new MultipartBody.Builder()
-				.setType(MultipartBody.FORM)
-				.addFormDataPart("txt", file.getName(),
-						RequestBody.create(MEDIA_TYPE_TXT, file))
-				.build();
-		Request request = new Request.Builder()
-				.header("Content-Type", "multipart/form-data")
-				.header("Accept", "text/html")
-				.url("https://cgi-lib.berkeley.edu/ex/fup.cgi")
-//				.url(BaseTest.Config.getProperty("hostName"))
-				.post(requestBody)
-				.build();
-		String responseData = null;
-		Response response = null;
-		try {
-			response = client.newCall(request).execute();
-			responseData = response.body().string();
+		String responseBody = null;
+		try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+
+			String message = "This is a multipart post";
+
+			// build multipart upload request
+			HttpEntity data = MultipartEntityBuilder.create().setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
+					.addBinaryBody("upfile", file, ContentType.DEFAULT_BINARY, file.getName())
+					.addTextBody("text", message, ContentType.DEFAULT_BINARY).build();
+
+			// build http request and assign multipart upload data
+			HttpUriRequest request = RequestBuilder.post("http://cgi-lib.berkeley.edu/ex/fup.cgi").setEntity(data).build();
+
+			System.out.println("Executing request " + request.getRequestLine());
+
+			// Create a custom response handler
+			ResponseHandler< String > responseHandler = response -> {
+			int status = response.getStatusLine().getStatusCode();
+			if (status >= 200 && status < 300) {
+				HttpEntity entity = response.getEntity();
+				return entity != null ? EntityUtils.toString(entity) : null;
+			} else {
+				throw new ClientProtocolException("Unexpected response status: " + status);
+			}
+            };
+			responseBody = httpclient.execute(request, responseHandler);
+			System.out.println("----------------------------------------");
+			System.out.println(responseBody);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return responseData;
+
+		return responseBody.toString();
 	}
 
 
-	public static void main(String[] args) {
-		String teamName = "Testaholic";
-		Map<String, Integer> photos = new HashMap<String, Integer>();
-		photos.put("Album 1",123);
-		photos.put("Album 2",12);
-		String reqPath = new FileUtils().createJSONFile(new JsonTemplate(teamName, photos).getJsonString());
-		APIHelper apiHelper = new APIHelper();
-		String response = apiHelper.uploadFile(reqPath);
-		System.out.println(response);
-	}
+
+
 }
