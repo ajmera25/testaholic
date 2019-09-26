@@ -6,6 +6,8 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.testng.ISuite;
+import org.testng.ISuiteListener;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -14,7 +16,7 @@ import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
-public class TestNGListenerAdapter implements ITestListener {
+public class TestNGListenerAdapter implements ITestListener, ISuiteListener {
 
 	protected static ExtentReports reports;
 	protected static ExtentTest test;
@@ -60,13 +62,13 @@ public class TestNGListenerAdapter implements ITestListener {
 		test.log(LogStatus.SKIP, result.getMethod().getMethodName() + " Test SKIPPED");
 	}
 	
-	public void onStart(ITestContext context) {
-		System.out.println("On start");
+	public void onStart(ISuite context) {
+		System.out.println("On suite start");
 		reports = new ExtentReports(System.getProperty("user.dir") + "/target/Report.html");
 	}
 	
-	public void onFinish(ITestContext context) {
-		System.out.println("On finish");
+	public void onFinish(ISuite context) {
+		System.out.println("On suite finish");
 		reports.endTest(test);
 		reports.flush();
 	}
