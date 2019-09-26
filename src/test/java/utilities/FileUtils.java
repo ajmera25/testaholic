@@ -35,11 +35,11 @@ public class FileUtils {
 		return fileName;
 	}
 	
-    public void downloadImage(String src, String string,int fileName) {
+    public void downloadImage(String src, String platform,int fileName) {
         // TODO Auto-generated method stub
         try {
         BufferedImage bufferedImage = ImageIO.read(new URL(src));
-        String filePath = System.getProperty("user.dir") + "/src/test/resources/mobilephotos/" + fileName + ".jpg";
+        String filePath = System.getProperty("user.dir") + "/src/test/resources/" + platform + "photos" + fileName + ".jpg";
         File outputfile = new File(filePath);
         ImageIO.write(bufferedImage, "jpeg", outputfile);
     }catch (IOException e) {
