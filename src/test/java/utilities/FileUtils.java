@@ -1,9 +1,6 @@
 package utilities;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -11,31 +8,14 @@ import java.time.Instant;
 
 public class FileUtils {
 
-	//private String fileName = "";
-	
-	public String readFile(String fileName) throws IOException {
-		String fileContent = null;
-		BufferedReader br = null;
-		try {
-			br = new BufferedReader(new FileReader("src/test/resources/" + fileName));
-			//String line ="";
-			while ((br.readLine()) != null) {
-				
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			br.close();
+	public int getFileSizeInKb(String filePath) {
+		File file = new File(filePath);
+		int fileSize = 0;
+		if (file.exists()) {
+			fileSize = (int) file.length() / 1024 ;
+			System.out.println(fileSize);
 		}
-		return fileContent;
-	} 
-	
-	public void writeToFile(String filePath,String fileContent){
-			try (FileWriter file = new FileWriter(filePath)){
-				file.write(fileContent);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		return fileSize;
 	}
 
 	public String createJSONFile(String data) {
@@ -50,15 +30,5 @@ public class FileUtils {
 		}
 		return fileName;
 	}
-	
-	public int getFileSizeInKb(String filePath) {
-        File file = new File(filePath);
-        int fileSize = 0;
-        if (file.exists()) {
-            fileSize = (int) file.length() / 1024 ;
-        System.out.println(fileSize);
-        }
-        return fileSize;
-    }
 
 }
