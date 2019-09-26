@@ -4,7 +4,7 @@
 	
 	<test name = "SampleWeb">
 		<classes>
-			<class name="tests.SampleMobile"></class>
+			<class name="tests.SampleWeb"></class>
 		</classes>
 	</test>
 	
