@@ -4,9 +4,11 @@ import java.io.FileInputStream;
 import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
 
 import io.appium.java_client.AppiumDriver;
 
@@ -30,16 +32,18 @@ public class BaseTest {
 	}
 
 	@BeforeClass
-	public void beforeClass() {
-		String platform = Config.getProperty("platform");
+	public void beforeClass(ITestContext ctx) {
+		//String platform = Config.getProperty("platform");
+		String test = ctx.getName();
 		DriverManagerFactory driverFactory = new DriverManagerFactory();
-		if (platform.equalsIgnoreCase("desktop")) {
+		if (test.contains("Desktop")) {
 			driverFactory.initializeDriver("desktop");
 			driver = driverFactory.getDesktopWebDriver();
 			driver.get(Config.getProperty("baseUrl"));
 		} else {
 			driverFactory.initializeDriver("mobileWeb");
 			appiumDriver = driverFactory.getAppiumDriver();
+			appiumDriver.get(Config.getProperty("baseUrl"));
 		}		
 	}
 

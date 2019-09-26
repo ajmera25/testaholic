@@ -1,6 +1,7 @@
 package utilities;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -49,5 +50,15 @@ public class FileUtils {
 		}
 		return fileName;
 	}
+	
+	public int getFileSizeInKb(String filePath) {
+        File file = new File(filePath);
+        int fileSize = 0;
+        if (file.exists()) {
+            fileSize = (int) file.length() / 1024 ;
+        System.out.println(fileSize);
+        }
+        return fileSize;
+    }
 
 }
