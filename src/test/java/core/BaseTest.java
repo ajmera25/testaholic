@@ -13,7 +13,7 @@ import org.testng.annotations.Parameters;
 import io.appium.java_client.AppiumDriver;
 
 public class BaseTest {
-
+	public String teamName = "Testaholic";
 	public WebDriver driver;
 	public AppiumDriver appiumDriver;
 
