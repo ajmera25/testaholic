@@ -58,10 +58,10 @@ public class StepInForum_FB_DesktopWeb extends BaseTest{
 	}
 	
 	 @AfterMethod
-		public void takeScreenShotOnFailure(ITestResult testResult) throws IOException {
+		public void takeScreenShotOnFaiStepInForum_FB_DesktopWeblure(ITestResult testResult) throws IOException {
 			if (testResult.getStatus() == ITestResult.FAILURE) {
 				System.out.println(testResult.getStatus());
-				File scrFile = ((TakesScreenshot)appiumDriver).getScreenshotAs(OutputType.FILE);
+				File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 				 String filePath = System.getProperty("user.dir") + "/src/test/resources/screenshots/"+testResult.getName()+".png";
 				 FileUtils.copyFile(scrFile, new File(filePath));
 		   }        
