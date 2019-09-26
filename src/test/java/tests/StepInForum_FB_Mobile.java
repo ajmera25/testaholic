@@ -1,14 +1,21 @@
 package tests;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 import core.APIHelper;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import core.BaseTest;
 import pageobjects.mobile.MobilePageObjects;
-import utilities.FileUtils;
 import utilities.JsonTemplate;
 
 public class StepInForum_FB_Mobile extends BaseTest{
@@ -30,10 +37,10 @@ public class StepInForum_FB_Mobile extends BaseTest{
     	mobileFlow = new MobilePageObjects(appiumDriver);
         mobileFlow.clickImage();
         int imageCounter=1;
-        FileUtils fileUtils = new FileUtils();
+        utilities.FileUtils fileUtils = new utilities.FileUtils();
         while(imageCounter<=5) {
             String filePath = System.getProperty("user.dir") + "/src/test/resources/mobilephotos/" + imageCounter + ".jpg";
-            int size = fileUtils.getFileSizeInKb(filePath);
+            int size = ( fileUtils).getFileSizeInKb(filePath);
             ImageSizeVerification.assertTrue(size > 0, "Image Size is not greater than O KB for Image: " +  imageCounter);
             imageCounter++;
         }
@@ -43,11 +50,22 @@ public class StepInForum_FB_Mobile extends BaseTest{
 
     @Test(dependsOnMethods = "test002_DownloadPhotosAndCheckSize" )
     public void test003_verifyFileUploaded(){
-        String fileName = new FileUtils().createJSONFile(new JsonTemplate(teamName, albumNames).getJsonString());
+        String fileName = new utilities.FileUtils().createJSONFile(new JsonTemplate(teamName, albumNames).getJsonString());
         APIHelper apiHelper = new APIHelper();
         String response = apiHelper.upload(fileName);
         Assert.assertTrue(response.contains(teamName),"Team name is not present in the response => "+response);
     }
+    
+    @AfterMethod
+	public void takeScreenShotOnFailure(ITestResult testResult) throws IOException {
+		if (testResult.getStatus() == ITestResult.FAILURE) {
+			System.out.println(testResult.getStatus());
+			File scrFile = ((TakesScreenshot)appiumDriver).getScreenshotAs(OutputType.FILE);
+			 String filePath = System.getProperty("user.dir") + "/src/test/resources/screenshots/"+testResult.getName()+".png";
+			 FileUtils.copyFile(scrFile, new File(filePath));
+	   }        
+	}
+
 }
 
 

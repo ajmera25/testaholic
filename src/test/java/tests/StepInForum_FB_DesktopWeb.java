@@ -1,9 +1,16 @@
 package tests;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 import core.APIHelper;
+
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import core.BaseTest;
@@ -49,5 +56,15 @@ public class StepInForum_FB_DesktopWeb extends BaseTest{
 		String response = apiHelper.upload(fileName);
 		Assert.assertTrue(response.contains(teamName),"Team name is not present in the response => "+response);
 	}
+	
+	 @AfterMethod
+		public void takeScreenShotOnFailure(ITestResult testResult) throws IOException {
+			if (testResult.getStatus() == ITestResult.FAILURE) {
+				System.out.println(testResult.getStatus());
+				File scrFile = ((TakesScreenshot)appiumDriver).getScreenshotAs(OutputType.FILE);
+				 String filePath = System.getProperty("user.dir") + "/src/test/resources/screenshots/"+testResult.getName()+".png";
+				 FileUtils.copyFile(scrFile, new File(filePath));
+		   }        
+		}
 
 }
