@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import core.BaseTest;
 import pageobjects.desktop.SamplePageObject;
 
-public class SampleWeb extends BaseTest{
+public class StepInForum_FB_DesktopWeb extends BaseTest{
 
     @Test
     public void stepInFB() throws Exception{
