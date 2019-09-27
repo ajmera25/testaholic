@@ -8,7 +8,6 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.ISuite;
 import org.testng.ISuiteListener;
-import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.Reporter;
@@ -23,19 +22,19 @@ public class TestNGListenerAdapter implements ITestListener, ISuiteListener {
 	protected static ExtentTest test;
 
 	public void onTestStart(ITestResult result) {
-		Reporter.log("Test started::" + result.getMethod().getMethodName(),true);
+		Reporter.log("Test started :: " + result.getMethod().getMethodName(),true);
 		test = reports.startTest(result.getMethod().getMethodName());
 		test.log(LogStatus.INFO, result.getMethod().getMethodName() + " Test Started");
 		test.log(LogStatus.INFO, result.getMethod().getDescription());
 	}
 
 	public void onTestSuccess(ITestResult result) {
-		Reporter.log("Test success::" + result.getMethod().getMethodName(),true);
+		Reporter.log("Test success :: " + result.getMethod().getMethodName(),true);
 		test.log(LogStatus.PASS, result.getMethod().getMethodName() + " Test PASSED");
 	}
 	
 	public void onTestFailure(ITestResult result) {
-		Reporter.log("Test failure::" + result.getMethod().getMethodName(),true);
+		Reporter.log("Test failure :: " + result.getMethod().getMethodName(),true);
 		String platform = result.getInstanceName();
 		DriverManagerFactory driverFactory = new DriverManagerFactory();
 		WebDriver driver;
@@ -59,7 +58,7 @@ public class TestNGListenerAdapter implements ITestListener, ISuiteListener {
 	}
 	
 	public void onTestSkipped(ITestResult result) {
-		Reporter.log("Test skipped::" + result.getMethod().getMethodName(),true);
+		Reporter.log("Test skipped :: " + result.getMethod().getMethodName(),true);
 		test.log(LogStatus.SKIP, result.getMethod().getMethodName() + " Test SKIPPED");
 	}
 	
@@ -69,7 +68,7 @@ public class TestNGListenerAdapter implements ITestListener, ISuiteListener {
 	}
 	
 	public void onFinish(ISuite context) {
-		Reporter.log("-----------On suite finish---------------");
+		Reporter.log("-----------Suite finished---------------");
 		reports.endTest(test);
 		reports.flush();
 	}

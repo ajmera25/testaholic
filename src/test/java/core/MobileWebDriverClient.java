@@ -29,7 +29,7 @@ import io.appium.java_client.touch.offset.PointOption;
 
 public class MobileWebDriverClient {
 
-	protected AppiumDriver myDriver;
+	protected AppiumDriver<MobileElement> myDriver;
 	private String myBrowser;
 	private String myUrl;
 	private String currentUrl;
@@ -39,7 +39,7 @@ public class MobileWebDriverClient {
 	private final int WEBDRIVER_CLIENT_EXPLICIT_DELAY = 90;
 	public WebDriverWait webdriverWait ;
 
-	public MobileWebDriverClient(AppiumDriver driver) {
+	public MobileWebDriverClient(AppiumDriver<MobileElement> driver) {
 		this.myDriver = driver;
 		webdriverWait = new WebDriverWait(myDriver, WEBDRIVER_CLIENT_EXPLICIT_DELAY);
 		webdriverWait.ignoring(StaleElementReferenceException.class);
@@ -1131,6 +1131,7 @@ public class MobileWebDriverClient {
 		((JavascriptExecutor) myDriver).executeScript(scrollElementIntoMiddle, locator);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void scroll(int counter) throws Exception {
 		for(int i=0;i<=counter;i++) {
 			new TouchAction(myDriver).press(PointOption.point(0, 600)).waitAction().moveTo(PointOption.point(0, 1000)).release().perform();
