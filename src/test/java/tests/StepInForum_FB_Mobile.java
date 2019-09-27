@@ -15,7 +15,6 @@ public class StepInForum_FB_Mobile extends BaseTest{
     
 	public StepInForum_FB_Mobile() {
 		super("mobileWeb");
-		// TODO Auto-generated constructor stub
 	}
 
 	GooglePage google = null;
@@ -23,21 +22,21 @@ public class StepInForum_FB_Mobile extends BaseTest{
 	HashMap<String, Integer> albumNames;
     
     @Test(description = "Search google for facebook post and click on it")
-    public void test001_StepInGoogle() throws Exception{
+    public void mobileWeb_SearchStepInFBPostAndNavigate() throws Exception{
       	google = new GooglePage(appiumDriver);
     	facebook = new FacebookPage(appiumDriver);
     	Assert.assertTrue(google.searchOnGoogle(), "Unable to search in Google");
         Assert.assertTrue(google.clickFbPost(), "Unable to click on FB Post");
     }
     
-    @Test(dependsOnMethods = "test001_StepInGoogle", description = "Open the post with more than 4 photos")
-    public void test002_StepInFB() throws Exception{    
+    @Test(dependsOnMethods = "mobileWeb_SearchStepInFBPostAndNavigate", description = "Open the post with more than 4 photos")
+    public void mobileWeb_OpenPostWithMoreThanFourPhotos() throws Exception{    
         Assert.assertTrue(facebook.openFbPost(), "Unable to Open FB Post");
         Assert.assertTrue(facebook.openPhotosPost(), "Unable to Open Photos");
     }
     
-    @Test(dependsOnMethods = "test002_StepInFB", description = "Download the photos and validate its size")
-    public void test003_DownloadPhotosAndCheckSize() throws Exception{
+    @Test(dependsOnMethods = "mobileWeb_OpenPostWithMoreThanFourPhotos", description = "Download the photos and validate its size")
+    public void mobileWeb_DownloadPhotosAndCheckSize() throws Exception{
     	SoftAssert ImageSizeVerification = new SoftAssert();
     	facebook.clickImage();
         int imageCounter=1;
@@ -51,14 +50,14 @@ public class StepInForum_FB_Mobile extends BaseTest{
         ImageSizeVerification.assertAll();
     }
     
-    @Test(dependsOnMethods = "test003_DownloadPhotosAndCheckSize", description = "Navigate to Photos and get all album names and its photo count")
-    public void test004_getListOfAlbums(){
+    @Test(dependsOnMethods = "mobileWeb_DownloadPhotosAndCheckSize", description = "Navigate to Photos and get all album names and its photo count")
+    public void mobileWeb_GetListOfAlbums(){
     	this.albumNames  = facebook.getListOfAlbumns();
     	Assert.assertFalse(albumNames.isEmpty(), "Failed to get album names");
     }
     
-    @Test(dependsOnMethods = "test004_getListOfAlbums", description = "Create data json file, upload it and verify response" )
-    public void test005_verifyFileUploaded(){
+    @Test(dependsOnMethods = "mobileWeb_GetListOfAlbums", description = "Create data json file, upload it and verify response" )
+    public void mobileWeb_VerifyFileUploaded(){
         String fileName = new utilities.FileUtils().createJSONFile(new JsonTemplate(teamName, albumNames).getJsonString());
         APIHelper apiHelper = new APIHelper();
         String response = apiHelper.upload(fileName);

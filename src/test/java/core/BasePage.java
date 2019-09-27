@@ -22,8 +22,7 @@ public class BasePage {
 		webDriverClient = new WebDriverClient(driver);
     }
 	
-	//So that we can utilize appium driver method
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public BasePage(AppiumDriver appiumDriver) {
 		//BasePage constructor for appium driver
         this.appiumDriver = appiumDriver;

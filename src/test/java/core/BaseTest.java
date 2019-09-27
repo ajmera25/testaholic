@@ -1,27 +1,20 @@
 package core;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Properties;
 
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.testng.ITestContext;
-import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 
 public class BaseTest {
 	public String teamName = "Testaholic";
 	public WebDriver driver;
-	public AppiumDriver appiumDriver;
+	public AppiumDriver<MobileElement> appiumDriver;
 	public static Properties Config;
 	String platform;
 	
@@ -40,6 +33,7 @@ public class BaseTest {
 		} 
 	}
 
+	@SuppressWarnings("unchecked")
 	@BeforeClass
 	public void beforeClass() {
 		DriverManagerFactory driverFactory = new DriverManagerFactory();
