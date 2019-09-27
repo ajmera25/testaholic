@@ -97,6 +97,7 @@ public class FacebookPage extends BasePage{
 
 	public boolean openFbPost() throws Exception {
 		try{
+			mobileWebDriverClient.click(lbl_FBReviews);
 			return mobileWebDriverClient.click(lbl_FBPosts);
 		}catch(Exception e){
 			e.printStackTrace();
