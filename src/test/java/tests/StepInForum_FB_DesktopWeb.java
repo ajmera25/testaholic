@@ -22,7 +22,7 @@ public class StepInForum_FB_DesktopWeb extends BaseTest{
 	HashMap<String, Integer> albumNames;
 
 	@Test(description = "Search google for facebook post and click on it")
-    public void stepInFB() throws Exception{
+    public void desktopWeb_SearchForStepInFBPostAndNavigate() throws Exception{
     	google = new GooglePage(driver);
     	facebook = new FacebookPage(driver);
     	
@@ -32,21 +32,21 @@ public class StepInForum_FB_DesktopWeb extends BaseTest{
         Assert.assertTrue(facebook.navigateToPosts(),"Unable to navigate to posts");
     }
     
-    @Test(dependsOnMethods = "stepInFB", description = "Download the photos for post with more than 4 photos and validate its size")
-	public void verifyDownloadPhotos() {
+    @Test(dependsOnMethods = "desktopWeb_SearchForStepInFBPostAndNavigate", description = "Download the photos for post with more than 4 photos and validate its size")
+	public void desktopWeb_VerifyDownloadPhotosAndSize() {
 		Assert.assertTrue(facebook.downloadPhotos(), "Failed to download photos");
 		Assert.assertTrue(facebook.verifyPhotoSize(), "Photo size is not as expected");
 	}
 	
-    @Test(dependsOnMethods = "verifyDownloadPhotos", description = "Navigate to Photos and get all album names and its photo count")
-	public void getAlbumNamesAndPhotoCount() throws Exception {
+    @Test(dependsOnMethods = "desktopWeb_VerifyDownloadPhotosAndSize", description = "Navigate to Photos and get all album names and its photo count")
+	public void desktopWeb_getAlbumNamesAndPhotoCount() throws Exception {
     	Assert.assertTrue(facebook.navigateToAlbums(),"Unable to navigate to all albums");
         this.albumNames= facebook.getAllAlbumNames();
         Assert.assertFalse(albumNames.isEmpty(), "Failed to get album names");
 	}
 
-	@Test(dependsOnMethods = "getAlbumNamesAndPhotoCount", description = "Create data json file, upload it and verify response" )
-	public void verifyFileUploaded(){
+	@Test(dependsOnMethods = "desktopWeb_getAlbumNamesAndPhotoCount", description = "Create data json file, upload it and verify response" )
+	public void desktopWeb_VerifyFileUploaded(){
 		String fileName = new utilities.FileUtils().createJSONFile(new JsonTemplate(teamName, albumNames).getJsonString());
 		APIHelper apiHelper = new APIHelper();
 		String response = apiHelper.upload(fileName);
